@@ -8,29 +8,29 @@ function new-santagametest {
         'ContentType' = 'application/json'
     }
     # new
-    $game = irm "$apipath/new" @DefParams -Method POST -Body $(@{name="Test Game $(Get-Random)"} |ConvertTo-Json)
+    $game = Invoke-RestMethod "$apipath/new" @DefParams -Method POST -Body $(@{name="Test Game $(Get-Random)"} |ConvertTo-Json)
     $game
 
     # test users
-    $names = 1..3 | % { "Test User $_" }
-    $names | % {
+    $names = 1..3 | ForEach-Object { "Test User $_" }
+    $names | ForEach-Object {
         $JsonParams = @{'name' = $_; 'code' = $game.pubkey } | ConvertTo-Json
-        irm @DefParams -Method POST -uri "$apipath/user" -Body $JsonParams
+        Invoke-RestMethod @DefParams -Method POST -uri "$apipath/user" -Body $JsonParams
     }
 
     # ideas
-    1..7 | %{
+    1..7 | ForEach-Object{
         $JsonParams = @{ idea = "Test idea $_"; code = $game.pubkey } | ConvertTo-Json
-        irm @DefParams -Method POST -uri "$apipath/idea" -Body $JsonParams
+        Invoke-RestMethod @DefParams -Method POST -uri "$apipath/idea" -Body $JsonParams
     }
 
     # run game
-    irm @DefParams -Method POST -uri "$apipath/game" -Body $(
+    Invoke-RestMethod @DefParams -Method POST -uri "$apipath/game" -Body $(
         @{ code = $game.pubkey; secret = $game.privkey; state=1} | ConvertTo-Json
     )
 
     #get results
-    $names | %{
-        irm @DefParams -Method GET -Uri "http://localhost:5000/user?code=$($game.pubkey)&name=$($_)"
+    $names | ForEach-Object{
+        Invoke-RestMethod @DefParams -Method GET -Uri "http://localhost:5000/user?code=$($game.pubkey)&name=$($_)"
     }
 }
