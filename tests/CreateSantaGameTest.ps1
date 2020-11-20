@@ -28,4 +28,9 @@ function new-santagametest {
     irm @DefParams -Method POST -uri "$apipath/game" -Body $(
         @{ code = $game.pubkey; secret = $game.privkey; state=1} | ConvertTo-Json
     )
+
+    #get results
+    $names | %{
+        irm @DefParams -Method GET -Uri "http://localhost:5000/user?code=$($game.pubkey)&name=$($_)"
+    }
 }
