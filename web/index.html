@@ -30,7 +30,7 @@
             </div>
             <div id="game-info-open" class="topcards mdl-card mdl-shadow--2dp" >
                 <h1 class="mdl-card__title-text"></h1>
-                <p>This group is currently open. You can register if you have not yet, or add an idea for presents.</p>
+                <p class="mdl-card__supporting-text">This group is currently open. You can register if you have not yet, or add an idea for presents.</p>
                 <button id="button-game-register" class="mdl-button mdl-js-button mdl-button--raised">Register</button>
                 <button id="button-game-ideas" class="mdl-button mdl-js-button mdl-button--raised">Ideas</button>
             </div>
@@ -63,6 +63,20 @@
                 <div class="mdl-card__supporting-text">
                     <p>Sorry this group has been closed and can no longer be used.</p>
                 </div>
+            </div>
+            <div id="game-info-open-register" class="topcards mdl-card mdl-shadow--2dp" >
+                <h3 class="mdl-card__title-text">Sign up to the group.</h3>
+                <div class="mdl-card__supporting-text">
+                    <p>Put your name in here to join the pool of Santas. Remember what you put as you will need it to get your results.</p>
+                </div>
+                <form id="enter-name-register" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="register-username">
+                        <label class="mdl-textfield__label" for="register-username">Your name here.</label>
+                    </div>
+                    <button id="enter-name-register-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Check</button>
+                </form>
+                <div id="gameregister-error" class="error-text mdl-card__supporting-text"></div>
             </div>
         </div>
     </body>

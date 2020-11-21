@@ -2,6 +2,7 @@
 
 // add actions to buttons.
 
+// lookup game
 $("#enter-gamecode").submit( function(event) {
     event.preventDefault();
     code = $('#gamecode')[0].value;
@@ -36,6 +37,7 @@ $("#enter-gamecode").submit( function(event) {
     }
 });
 
+// get your results
 $("#game-actions-ran").submit(function(event) {
     event.preventDefault();
     code = $('#gamecode')[0].value;
@@ -74,13 +76,42 @@ $("#game-actions-ran").submit(function(event) {
     }
 });
 
-
+// register for game
 $("#button-game-register").off('click').on('click',function (event) {
-    event.preventDefault()
-
+    event.preventDefault();
+    $('[id^=game-info-open-]').each(function (i){
+        $(this).css('display','none');
+    });
+    $('#register-username')[0].value="";
+    $('#game-info-open-register').css('display','block');
 })
+
+// do register
+$('#enter-name-register').submit(function(event) {
+    event.preventDefault();
+    code = $('#gamecode')[0].value;
+    name = $("#register-username")[0].value;
+    error_object = $('#gameregister-error');
+    error_object.text("");
+    if (code.length != 8) {
+        error_object.text("Codes should be exactly 8 characters long. Did you modify the input?");
+    } else if (name.length == 0) {
+        error_object.text("You must input a name.");
+    } else {
+        add_user(code,name,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.addClass('error-text');
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                error_object.removeClass('error-text');
+                $('#register-username')[0].value = "";
+                error_object.text("Successful Registration.");
+            }
+        },error_object);
+    }
+});
 
 $("#button-game-ideas").off('click').on('click',function (event) {
-    event.preventDefault()
+    event.preventDefault();
     
-})
+});
