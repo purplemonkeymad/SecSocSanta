@@ -11,7 +11,7 @@ $("#enter-gamecode").submit( function(event) {
         error_object.text("Codes should be exactly 8 characters long.");
     } else {
         get_game(code,function(json_data){
-            $('[id^=game-info]').each(function (i){
+            $('[id^=game-info-]').each(function (i){
                 $(this).css('display','none');
             });
             if (json_data.status == 'error'){
