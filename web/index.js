@@ -4,9 +4,9 @@
 
 $("#enter-gamecode").submit( function(event) {
     event.preventDefault();
-    code = $('#gamecode')[0].value
-    error_object = $('#gamecode-error')
-    error_object.text("")
+    code = $('#gamecode')[0].value;
+    error_object = $('#gamecode-error');
+    error_object.text("");
     if (code.length != 8) {
         error_object.text("Codes should be exactly 8 characters long.");
     } else {
@@ -38,7 +38,49 @@ $("#enter-gamecode").submit( function(event) {
 
 $("#game-actions-ran").submit(function(event) {
     event.preventDefault();
-    console.log("game-register");
+    code = $('#gamecode')[0].value;
+    name = $("#results-username")[0].value;
+    error_object = $('#gameran-error');
+    error_object.text("");
+    if (code.length != 8) {
+        error_object.text("Codes should be exactly 8 characters long. Did you modify the input?");
+    } else if (name.length == 0) {
+        error_object.text("You must input a name.");
+    } else {
+        get_user(code,name,function(json_data){
+            $('[id^=game-info-ran-]').each(function (i){
+                $(this).css('display','none');
+            });
+            if (json_data.status == 'error'){
+                error_object.text(json_data.statusdetail)
+            } else if (json_data.status == 'ok'){
+                card = $('#game-info-ran-results');
+                card.find('#giftee-anounce').text(json_data.giftee);
+                list = card.find('#game-results-list');
+                list.empty();
+                list.append(
+                    json_data.ideas.map( i =>
+                        $('<li>').addClass('mdl-list__item')
+                            .append(
+                                $('<span>').addClass('mdl-list__item-primary-content').text(i)
+                            )
+                    )
+                )
+                card.css('display','block');
+            } else {
+                error_object.text("Invalid reply from API.");
+            }
+        },error_object)
+    }
 });
 
 
+$("#button-game-register").off('click').on('click',function (event) {
+    event.preventDefault()
+
+})
+
+$("#button-game-ideas").off('click').on('click',function (event) {
+    event.preventDefault()
+    
+})
