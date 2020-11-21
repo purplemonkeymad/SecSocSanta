@@ -113,5 +113,35 @@ $('#enter-name-register').submit(function(event) {
 
 $("#button-game-ideas").off('click').on('click',function (event) {
     event.preventDefault();
-    
+    $('[id^=game-info-open-]').each(function (i){
+        $(this).css('display','none');
+    });
+    $('#register-idea')[0].value="";
+    $('#game-info-open-idea').css('display','block');
+});
+
+$('#enter-idea').submit(function(event) {
+    event.preventDefault();
+    code = $('#gamecode')[0].value;
+    idea = $("#register-idea")[0].value;
+    error_object = $('#idearegister-error');
+    error_object.text("");
+    if (code.length != 8) {
+        error_object.text("Codes should be exactly 8 characters long. Did you modify the input?");
+    } else if (idea.length == 0) {
+        error_object.text("You must input an idea.");
+    } else if (idea.length > 260) {
+        error_object.text("Ideas are limited to 260 Characters, be more succinct.")
+    } else {
+        add_idea(code,idea,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.addClass('error-text');
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                error_object.removeClass('error-text');
+                $('#register-username')[0].value = "";
+                error_object.text("Successful Submission.");
+            }
+        },error_object);
+    }
 });

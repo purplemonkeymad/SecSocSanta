@@ -17,6 +17,12 @@ function get_user(code,name,callback,error_element){
 
 function add_user(code,name,callback,error_element){
     var uri = backendUri + '/user';
-    post_data = JSON.stringify({"code": code,"name": name})
+    var post_data = JSON.stringify({"code": code,"name": name})
     $.post(uri,post_data,callback, 'json').fail(function(e){ error_element.text("Unable to contact server.")});
+}
+
+function add_idea(code,idea,callback,error_element){
+    var uri = backendUri + '/idea';
+    var idea_post_data = JSON.stringify({'code': code,'idea': idea});
+    $.post(uri,idea_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
