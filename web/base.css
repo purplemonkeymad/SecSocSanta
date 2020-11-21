@@ -1,0 +1,21 @@
+body {
+    margin: 10px;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+.topcards {
+    margin: 0.5em;
+    padding: 0.5em;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    display: none;
+}
+.topcards > .mdl-card__title {
+    background-color: rgb(193, 255, 219);
+}
+.default-show {
+    display: block;
+}
+.error-text {
+    color: red;
+}
