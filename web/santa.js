@@ -26,3 +26,15 @@ function add_idea(code,idea,callback,error_element){
     var idea_post_data = JSON.stringify({'code': code,'idea': idea});
     $.post(uri,idea_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
+
+function get_auth(code,secret,callback,error_element){
+    var uri = backendUri + '/game';
+    var auth_post_data = JSON.stringify({"code":code,"secret":secret,"auth":1});
+    $.post(uri,auth_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+}
+
+function roll_santas(code,secret,callback,error_element){
+    var uri = backendUri + '/game';
+    var roll_post_data = JSON.stringify({'code':code,'secret':secret,'state':1});
+    $.post(uri,roll_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+}

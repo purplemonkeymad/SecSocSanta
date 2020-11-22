@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>SecSoc Santa</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <link rel="stylesheet" href="base.css"/>
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script defer src="santa.js"></script>
+        <script defer src="manage.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="main">
+            <div id="header" class="default-show topcards mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Sec Soc Santa Manage Interface</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <p>Welcome to the Sec Soc Secret Santa or SSSS. This page lets you do some actions with a group.</p>
+                    <p>Press New to start a new group or fill in the details of an existing group</p>
+                </div>
+                <button id="button-game-new" class="mdl-button mdl-js-button mdl-button--raised">New</button>
+                <form id="enter-gamecode" action="">    
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="gamecode">
+                        <label class="mdl-textfield__label" for="gamecode">Group Code...</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="admincode">
+                        <label class="mdl-textfield__label" for="admincode">Group Secret...</label>
+                    </div>
+                    <button id="enter-gamecode-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Edit</button>
+                </form>
+                <div id="gamecode-error" class="error-text mdl-card__supporting-text"></div>
+            </div>
+            <div id="game-edit-new" class="topcards mdl-card mdl-shadow--2dp" >
+                <h1 class="mdl-card__title-text">New</h1>
+                <p class="mdl-card__supporting-text">Put a Name for your group below and press new.</p>
+                <form id="enter-newgame" action="">    
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="newname">
+                        <label class="mdl-textfield__label" for="newname">Name...</label>
+                    </div>
+                    <button id="new-game-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Create!</button>
+                </form>
+                <div id="enter-newgame-error" class="error-text mdl-card__supporting-text"></div>
+            </div>
+            <div id="game-edit-existing" class="topcards mdl-card mdl-shadow--2dp" >
+                <h1 class="mdl-card__title-text"></h1>
+                <div class="mdl-card__supporting-text">
+                    <p>Your game has <span id="edit-members"></span> santas and <span id="edit-ideas"></span> ideas.</p>
+                    <p>Choose an action to perform:</p>
+                </div>
+                <button id="roll-game-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Roll Santas</button>
+                <div id="edit-game-error" class="error-text mdl-card__supporting-text"></div>
+            </div>
+        </div>
+    </body>
+</html>
