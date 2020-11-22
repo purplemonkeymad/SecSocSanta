@@ -46,6 +46,24 @@
                     <button id="new-game-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Create!</button>
                 </form>
                 <div id="enter-newgame-error" class="error-text mdl-card__supporting-text"></div>
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="new-results-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Important Items</th>
+                            <th class="mdl-data-table__cell--non-numeric">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Group Code (share this!)</th>
+                            <th class="mdl-data-table__cell--non-numeric" id="new-results-table-code"></th>
+                        </tr>
+                        <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Group Secret (keep this)</th>
+                            <th class="mdl-data-table__cell--non-numeric" id="new-results-table-secret"></th>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div id="game-edit-existing" class="topcards mdl-card mdl-shadow--2dp" >
                 <h1 class="mdl-card__title-text"></h1>

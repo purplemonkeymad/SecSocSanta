@@ -52,7 +52,6 @@ $("#roll-game-button").off('click').on('click',function (event) {
             if (json_data.status == 'error'){
                 error_object.text(json_data.statusdetail);
             } else if (json_data.status == 'ok'){
-                // fill details into next card.
                 error_object.removeClass('error-text');
                 error_object.text("Success.");
             } else {
@@ -71,3 +70,32 @@ $("#button-game-new").off('click').on('click',function (event) {
     var card = $('#game-edit-new');
     card.css('display','block');
 })
+
+// register game
+$("#enter-newgame").submit( function(event) {
+    event.preventDefault();
+    name = $('#newname')[0].value;
+    error_object = $('#enter-newgame-error');
+    error_object.addClass("error-text");
+    error_object.text("");
+    if (name.length == 0) {
+        error_object.text("Enter a name.");
+    } else {
+        new_group(name,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                // fill info into existing fields.
+                $('#gamecode')[0].value = json_data.pubkey;
+                $('#admincode')[0].value = json_data.privkey;
+                error_object.text("Success. Share the Game code that has been placed below. Keep the Secret code to yourself, but keep it safe. It is needed to roll the Santas.");
+                error_object.removeClass('error-text');
+                $('#new-results-table-code').text(json_data.pubkey);
+                $('#new-results-table-secret').text(json_data.privkey);
+                $('#new-results-table').css('display','block')
+            } else {
+                error_object.text("Invalid reply from API.");
+            }
+        },error_object)
+    }
+});

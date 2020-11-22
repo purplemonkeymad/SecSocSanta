@@ -38,3 +38,9 @@ function roll_santas(code,secret,callback,error_element){
     var roll_post_data = JSON.stringify({'code':code,'secret':secret,'state':1});
     $.post(uri,roll_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
+
+function new_group(name,callback,error_element){
+    var uri = backendUri + '/new';
+    var new_post_data = JSON.stringify({'name':name});
+    $.post(uri,new_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+}
