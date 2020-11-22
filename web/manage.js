@@ -38,7 +38,6 @@ $("#enter-gamecode").submit( function(event) {
 // roll game
 $("#roll-game-button").off('click').on('click',function (event) {
     event.preventDefault();
-    event.preventDefault();
     code = $('#gamecode')[0].value;
     admin = $('#admincode')[0].value;
     error_object = $('#edit-game-error');
@@ -61,4 +60,14 @@ $("#roll-game-button").off('click').on('click',function (event) {
             }
         },error_object)
     }
+})
+
+// new game
+$("#button-game-new").off('click').on('click',function (event) {
+    event.preventDefault();
+    $('[id^=game-edit-]').each(function (i){
+        $(this).css('display','none');
+    });
+    var card = $('#game-edit-new');
+    card.css('display','block');
 })
