@@ -88,7 +88,11 @@ $("#enter-newgame").submit( function(event) {
                 // fill info into existing fields.
                 $('#gamecode').val(json_data.pubkey).parent().addClass('is-focused');
                 $('#admincode').val(json_data.privkey).parent().addClass('is-focused');
-                error_object.text("Success. Share the Game code that has been placed below. Keep the Secret code to yourself, but keep it safe. It is needed to roll the Santas.");
+                success_text = "\
+                Success. Share the Game code that has been placed below. Keep the Secret code to yourself, but keep it safe. It is needed to roll the Santas. \
+                <a href=\"/#" + json_data.pubkey + "\">Don't forget to register yourself. </a>\
+                "
+                error_object.html(success_text);
                 error_object.removeClass('error-text');
                 $('#new-results-table-code').text(json_data.pubkey);
                 $('#new-results-table-secret').text(json_data.privkey);
