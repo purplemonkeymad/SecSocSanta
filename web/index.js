@@ -82,7 +82,7 @@ $("#button-game-register").off('click').on('click',function (event) {
     $('[id^=game-info-open-]').each(function (i){
         $(this).css('display','none');
     });
-    $('#register-username')[0].value="";
+    $('#register-username').val('').parent().removeClass('is-focused');
     $('#game-info-open-register').css('display','block');
 })
 
@@ -104,7 +104,7 @@ $('#enter-name-register').submit(function(event) {
                 error_object.text(json_data.statusdetail);
             } else if (json_data.status == 'ok'){
                 error_object.removeClass('error-text');
-                $('#register-username')[0].value = "";
+                $('#register-username').val('').parent().removeClass('is-focused');
                 error_object.text("Successful Registration.");
             }
         },error_object);
@@ -116,7 +116,7 @@ $("#button-game-ideas").off('click').on('click',function (event) {
     $('[id^=game-info-open-]').each(function (i){
         $(this).css('display','none');
     });
-    $('#register-idea')[0].value="";
+    $('#register-idea').val('').parent().removeClass('is-focused');
     $('#game-info-open-idea').css('display','block');
 });
 
@@ -139,7 +139,7 @@ $('#enter-idea').submit(function(event) {
                 error_object.text(json_data.statusdetail);
             } else if (json_data.status == 'ok'){
                 error_object.removeClass('error-text');
-                $('#register-username')[0].value = "";
+                $('#register-idea').val('').parent().removeClass('is-focused');
                 error_object.text("Successful Submission.");
             }
         },error_object);
@@ -151,7 +151,7 @@ $( window ).on( "load", function() {
     pot_code = $(location)[0].hash.replace('#','');
     if (pot_code.length == 8) {
         // good enough
-        $('#gamecode')[0].value = pot_code;
+        $('#gamecode').val(pot_code).parent().addClass('is-focused');
         $("#enter-gamecode").submit();
     }
 });

@@ -86,8 +86,8 @@ $("#enter-newgame").submit( function(event) {
                 error_object.text(json_data.statusdetail);
             } else if (json_data.status == 'ok'){
                 // fill info into existing fields.
-                $('#gamecode')[0].value = json_data.pubkey;
-                $('#admincode')[0].value = json_data.privkey;
+                $('#gamecode').val(json_data.pubkey).parent().addClass('is-focused');
+                $('#admincode').val(json_data.privkey).parent().addClass('is-focused');
                 error_object.text("Success. Share the Game code that has been placed below. Keep the Secret code to yourself, but keep it safe. It is needed to roll the Santas.");
                 error_object.removeClass('error-text');
                 $('#new-results-table-code').text(json_data.pubkey);
@@ -105,6 +105,6 @@ $( window ).on( "load", function() {
     pot_code = $(location)[0].hash.replace('#','');
     if (pot_code.length == 8) {
         // good enough
-        $('#gamecode')[0].value = pot_code;
+        $('#gamecode').val(pot_code).parent().addClass('is-focused');
     }
 });
