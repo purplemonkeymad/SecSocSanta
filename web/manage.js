@@ -99,3 +99,12 @@ $("#enter-newgame").submit( function(event) {
         },error_object)
     }
 });
+
+// auto fill an submit a code if given as a uri hash (#ABCDEFGH), but we can't submit so just leave it in there.
+$( window ).on( "load", function() {
+    pot_code = $(location)[0].hash.replace('#','');
+    if (pot_code.length == 8) {
+        // good enough
+        $('#gamecode')[0].value = pot_code;
+    }
+});
