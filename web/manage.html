@@ -72,7 +72,23 @@
                     <p>Choose an action to perform:</p>
                 </div>
                 <button id="roll-game-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Roll Santas</button>
+                <button id="list-users" class="mdl-button mdl-js-button mdl-button--raised" type="submit">List Current Users</button>
                 <div id="edit-game-error" class="error-text mdl-card__supporting-text"></div>
+            </div>
+            <div id="game-edit-existing-listusers" class="topcards mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__supporting-text">
+                    <p>The following names have been registered to your group:</p>
+                </div>
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="new-results-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Name:</th>
+                        </tr>
+                    </thead>
+                    <ul id="game-listuser-tbody">
+                        <li>Placeholder Text</li>
+                    </ul>
+                </table>
             </div>
         </div>
     </body>

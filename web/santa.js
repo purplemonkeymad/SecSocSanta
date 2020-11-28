@@ -44,3 +44,9 @@ function new_group(name,callback,error_element){
     var new_post_data = JSON.stringify({'name':name});
     $.post(uri,new_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
+
+function list_users(code,secret,callback,error_element){
+    var uri = backendUri + '/list_user';
+    var list_users_post_data = JSON.stringify({'code':code,'secret':secret});
+    $.post(uri,list_users_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+}

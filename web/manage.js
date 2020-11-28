@@ -38,6 +38,10 @@ $("#enter-gamecode").submit( function(event) {
 // roll game
 $("#roll-game-button").off('click').on('click',function (event) {
     event.preventDefault();
+    /// hide child cards
+    $('[id^=game-edit-existing-]').each(function (i){
+        $(this).css('display','none');
+    });
     code = $('#gamecode')[0].value;
     admin = $('#admincode')[0].value;
     error_object = $('#edit-game-error');
@@ -54,6 +58,53 @@ $("#roll-game-button").off('click').on('click',function (event) {
             } else if (json_data.status == 'ok'){
                 error_object.removeClass('error-text');
                 error_object.text("Success.");
+            } else {
+                error_object.text("Invalid reply from API.");
+            }
+        },error_object)
+    }
+})
+
+// list users
+$('#list-users').off('click').on('click',function (event) {
+    event.preventDefault();
+    /// hide child cards
+    $('[id^=game-edit-existing-]').each(function (i){
+        $(this).css('display','none');
+    });
+    code = $('#gamecode')[0].value;
+    admin = $('#admincode')[0].value;
+    error_object = $('#edit-game-error');
+    error_object.addClass("error-text");
+    error_object.text("");
+    if (code.length != 8) {
+        error_object.text("Codes should be exactly 8 characters long.");
+    } else if (admin.length != 64 ){
+        error_object.text("Admin code should be exactly 64 characters long");
+    } else {
+        list_users(code,admin,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                error_object.removeClass('error-text');
+                error_object.text("");
+
+                var card = $('#game-edit-existing-listusers');
+
+                // fill usernames
+                list = card.find('#game-listuser-tbody');
+                list.empty();
+                list.append(
+                    json_data.users.map( i =>
+                        $('<li>').addClass('mdl-list__item')
+                            .append(
+                                $('<span>').addClass('mdl-list__item-primary-content').text(i)
+                            )
+                    )
+                );
+
+                // make card visible
+                card.css('display','block')
             } else {
                 error_object.text("Invalid reply from API.");
             }
