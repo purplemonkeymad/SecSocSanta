@@ -28,6 +28,25 @@ $("#enter-gamecode").submit( function(event) {
                 card.find('#edit-members').text(json_data.santas);
                 card.find('#edit-ideas').text(json_data.ideas);
                 card.css('display','block');
+
+                // set button states by group status
+                var current_state = json_data.state;
+                if (current_state == 0){
+                    // is open for registration
+                    $('#roll-game-button')[0].disabled=false;
+                    $('#list-users')[0].disabled=false;
+                    $('#list-ideas')[0].disabled=true;
+                } else if (current_state == 1){
+                    // is rolled
+                    $('#roll-game-button')[0].disabled=true;
+                    $('#list-users')[0].disabled=false;
+                    $('#list-ideas')[0].disabled=false;
+                } else {
+                    // closed?
+                    $('#roll-game-button')[0].disabled=true;
+                    $('#list-users')[0].disabled=true;
+                    $('#list-ideas')[0].disabled=true;
+                }
             } else {
                 error_object.text("Invalid reply from API.");
             }
@@ -96,6 +115,51 @@ $('#list-users').off('click').on('click',function (event) {
                 list.empty();
                 list.append(
                     json_data.users.map( i =>
+                        $('<li>').addClass('mdl-list__item')
+                            .append(
+                                $('<span>').addClass('mdl-list__item-primary-content').text(i)
+                            )
+                    )
+                );
+
+                // make card visible
+                card.css('display','block')
+            } else {
+                error_object.text("Invalid reply from API.");
+            }
+        },error_object)
+    }
+})
+
+// list ideas left over
+$('#list-ideas').off('click').on('click',function (event) {
+    event.preventDefault();
+    /// hide child cards
+    $('[id^=game-edit-existing-]').each(function (i){
+        $(this).css('display','none');
+    });
+    code = $('#gamecode')[0].value;
+    admin = $('#admincode')[0].value;
+    error_object = $('#edit-game-error');
+    error_object.addClass("error-text");
+    error_object.text("");
+    if (code.length != 8) {
+        error_object.text("Codes should be exactly 8 characters long.");
+    } else {
+        list_leftover_ideas(code,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                error_object.removeClass('error-text');
+                error_object.text("");
+
+                var card = $('#game-edit-existing-ideasleft');
+
+                // fill usernames
+                list = card.find('#game-listitem-list');
+                list.empty();
+                list.append(
+                    json_data.ideas.map( i =>
                         $('<li>').addClass('mdl-list__item')
                             .append(
                                 $('<span>').addClass('mdl-list__item-primary-content').text(i)

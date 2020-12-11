@@ -50,3 +50,9 @@ function list_users(code,secret,callback,error_element){
     var list_users_post_data = JSON.stringify({'code':code,'secret':secret});
     $.post(uri,list_users_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
+
+// get ideas that were not selected for anyone.
+function list_leftover_ideas(code,callback,error_element){
+    var uri = backendUri + '/idea?code=' + code;
+    $.getJSON(uri,callback).fail(function(e){ error_element.text("Unable to contact server.") })
+}
