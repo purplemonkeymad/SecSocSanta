@@ -57,6 +57,14 @@ function list_leftover_ideas(code,callback,error_element){
     $.getJSON(uri,callback).fail(function(e){ error_element.text("Unable to contact server.") })
 }
 
+function getEndpoint(name){
+    return (backendUri + '/' + name);
+}
+
+function doEndpointPost(data,path,callback,error_element){
+    var post_data = JSON.stringify(data);
+    $.post(getEndpoint(path),post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+}
 /********** Display change functions *********/
 
 function show_card_matching(idmatch){
@@ -77,4 +85,69 @@ function show_card_exact(id_cards){
             $(this).css('display','none');
         }
     });
+}
+
+
+/************* login storage *************/
+
+var storedValues = window.localStorage;
+
+function getStoredLoginStatus(){
+    if (storedValues.sessionid) {
+        if (storedValues.sessionpw) {
+            return "loggedIn";
+        } else {
+            return "verifyNeeded";
+        }
+    } else {
+        return "loggedOut";
+    }
+}
+
+function getSessionCrednetinals(){
+    if (getStoredLoginStatus() == "loggedIn") {
+        return {
+            "session" : storedValues.sessionid,
+            "secret" : storedValues.sessionpw,
+        };
+    } else {
+        return {};
+    }
+}
+
+function setSessionId(sessionid){
+    storedValues.sessionid = sessionid;
+}
+
+function setSessionPw(sessionpw){
+    storedValues.sessionpw = sessionpw;
+}
+
+function doLogin(email,callback,error_element){
+    doEndpointPost({'email':email},'auth/new_session',callback,error_element);
+}
+
+function doRegister(email,name,callback,error_element){
+    doEndpointPost({'email':email,'name':name},'auth/register',callback,error_element);
+}
+
+function doVerify(sessionid,verify,sessionpw,callback,error_element){
+    doEndpointPost({'session':sessionid,'code':verify,'secret':sessionpw},'auth/verify_session',callback,error_element);
+}
+
+/*********************** Secret gen  ***************/
+
+// https://stackoverflow.com/a/27747377
+
+// dec2hex :: Integer -> String
+// i.e. 0-255 -> '00'-'ff'
+function dec2hex (dec) {
+    return dec.toString(16).padStart(2, "0")
+}
+
+// generateId :: Integer -> String
+function generateId (len) {
+    var arr = new Uint8Array((len || 60) / 2)
+    window.crypto.getRandomValues(arr)
+    return Array.from(arr, dec2hex).join('')
 }
