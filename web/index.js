@@ -156,6 +156,10 @@ $('a.mdl-navigation__link').click(function(e) {
 
 // auto fill an submit a code if given as a uri hash (#ABCDEFGH)
 $( window ).on( "load", function() {
+
+    // hide buttons you can't use yet
+    $(".needs-login").css('display','none');
+
     pot_code = $(location)[0].hash.replace('#','');
     if (pot_code.length == 8) {
         // good enough

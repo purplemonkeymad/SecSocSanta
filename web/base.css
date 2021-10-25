@@ -21,6 +21,12 @@ body {
 .mdl-layout__content{
     width: 100%;
 }
+a.needs-login {
+    display: none;
+}
+a.needs-logout {
+    display: block;
+}
 
 /* desktop display */
 @media only screen and (min-width: 768px) {
