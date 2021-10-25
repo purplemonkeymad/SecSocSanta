@@ -2,6 +2,7 @@
     <head>
         <title>SecSoc Santa</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <link rel="stylesheet" href="base.css"/>
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -33,11 +34,36 @@
             
     </head>
     <body>
-        <div id="main">
-            <div id="header" class="default-show topcards mdl-card mdl-shadow--2dp">
-                <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">Sec Soc Santa Interface</h2>
+        <div id="main" class="mdl-layout mdl-js-layout">
+            <header class="mdl-layout__header mdl-layout__header--fixed-header has-drawer">
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout-title">SecSoc Secret Santa</span>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- Navigation -->
+                    <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="">Home</a>
+                    <a class="mdl-navigation__link" href="">Login</a>
+                    <a class="mdl-navigation__link" href="">Logout</a>
+                    <a class="mdl-navigation__link" href="">Register</a>
+                    <a class="mdl-navigation__link" href="">Join</a>
+                    </nav>
                 </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">SecSoc Secret Santa</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="">Home</a>
+                    <a class="mdl-navigation__link" href="">Login</a>
+                    <a class="mdl-navigation__link" href="">Logout</a>
+                    <a class="mdl-navigation__link" href="">Register</a>
+                    <a class="mdl-navigation__link" href="">Groups</a>
+                    <a class="mdl-navigation__link" href="">Join</a>
+                </nav>
+            </div>
+            <main class="mdl-layout__content">
+            
+            <div id="header" class="default-show topcards mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__supporting-text">
                     <p>Welcome to the Sec Soc Secret Santa or SSSS.</p>
                     <p>Put the group code you were given in the following box to access actions:</p>
@@ -115,6 +141,7 @@
                 </form>
                 <div id="idearegister-error" class="error-text mdl-card__supporting-text"></div>
             </div>
+            </main>
         </div>
     </body>
 </html>

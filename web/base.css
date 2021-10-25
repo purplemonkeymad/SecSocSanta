@@ -18,6 +18,9 @@ body {
 .error-text {
     color: red;
 }
+.mdl-layout__content{
+    width: 100%;
+}
 
 /* desktop display */
 @media only screen and (min-width: 768px) {
