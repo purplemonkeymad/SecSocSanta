@@ -56,3 +56,25 @@ function list_leftover_ideas(code,callback,error_element){
     var uri = backendUri + '/idea?code=' + code;
     $.getJSON(uri,callback).fail(function(e){ error_element.text("Unable to contact server.") })
 }
+
+/********** Display change functions *********/
+
+function show_card_matching(idmatch){
+    $('#main').children('div').each(function(i){
+        if (this.id.match(idmatch)) {
+            $(this).css('display','block')
+        } else {
+            $(this).css('display','none')
+        }
+    });
+}
+
+function show_card_exact(id_cards){
+    $('#main').children('div').each(function(i){
+        if (id_cards.includes(this.id)) {
+            $(this).css('display','block')
+        } else {
+            $(this).css('display','none')
+        }
+    });
+}
