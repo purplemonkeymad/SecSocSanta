@@ -34,7 +34,7 @@
             
     </head>
     <body>
-        <div id="main" class="mdl-layout mdl-js-layout">
+        <div class="mdl-layout mdl-js-layout">
             <header class="mdl-layout__header mdl-layout__header--fixed-header has-drawer">
                 <div class="mdl-layout__header-row">
                     <span class="mdl-layout-title">SecSoc Secret Santa</span>
@@ -61,8 +61,7 @@
                     <a class="mdl-navigation__link" href="">Join</a>
                 </nav>
             </div>
-            <main class="mdl-layout__content">
-            
+            <main id="main" class="mdl-layout__content">
             <div id="header" class="default-show topcards mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__supporting-text">
                     <p>Welcome to the Sec Soc Secret Santa or SSSS.</p>
@@ -76,6 +75,67 @@
                     <button id="enter-gamecode-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Check</button>
                 </form>
                 <div id="gamecode-error" class="error-text mdl-card__supporting-text"></div>
+            </div>
+            <div id="register" class="default-show topcards mdl-card mdl-shadow--2dp">
+                <h1 class="mdl-card__title-text">Register for an account on SecSoc Secret Santa.</h1>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Registration will allow you to join groups, and even create your own groups.
+                        Your identity will be tied to your email so make sure to use an account only you have access to.
+                    </p>
+                </div>
+                <form id="register-email" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="register-email">
+                        <label class="mdl-textfield__label" for="register-email">Email Address (eg. yourname@example.com)</label>
+                    </div>
+                    <button id="register-email-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Register</button>
+                </form>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Your email will only be stored for login and verification purposes.
+                    </p>
+                </div>
+            </div>
+            <div id="login" class="default-show topcards mdl-card mdl-shadow--2dp">
+                <h1 class="mdl-card__title-text">Login to your account.</h1>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Enter your registered email. You will be emailed a code used to verify your account ownership.
+                    </p>
+                </div>
+                <form id="login-email" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="login-email">
+                        <label class="mdl-textfield__label" for="login-email">Email Address (eg. yourname@example.com)</label>
+                    </div>
+                    <button id="login-email-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Login</button>
+                </form>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Your email will only be stored for login and verification purposes.
+                    </p>
+                </div>
+            </div>
+            <div id="verify" class="default-show topcards mdl-card mdl-shadow--2dp">
+                <h1 class="mdl-card__title-text">Login to your account.</h1>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Please Enter the code that was emailed to <span id="verify-emailaddress-label">your email</span>.
+                    </p>
+                </div>
+                <form id="verify-code" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="verify-email">
+                        <label class="mdl-textfield__label" for="verify-email">Verify code (eg 123456)</label>
+                    </div>
+                    <button id="verify-code-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Register</button>
+                </form>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Your email will only be stored for login and verification purposes.
+                    </p>
+                </div>
             </div>
             <div id="game-info-open" class="topcards mdl-card mdl-shadow--2dp" >
                 <h1 class="mdl-card__title-text"></h1>
