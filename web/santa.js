@@ -62,9 +62,9 @@ function list_leftover_ideas(code,callback,error_element){
 function show_card_matching(idmatch){
     $('#main').children('div').each(function(i){
         if (this.id.match(idmatch)) {
-            $(this).css('display','block')
+            $(this).css('display','block');
         } else {
-            $(this).css('display','none')
+            $(this).css('display','none');
         }
     });
 }
@@ -72,9 +72,9 @@ function show_card_matching(idmatch){
 function show_card_exact(id_cards){
     $('#main').children('div').each(function(i){
         if (id_cards.includes(this.id)) {
-            $(this).css('display','block')
+            $(this).css('display','block');
         } else {
-            $(this).css('display','none')
+            $(this).css('display','none');
         }
     });
 }

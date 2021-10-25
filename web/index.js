@@ -146,6 +146,14 @@ $('#enter-idea').submit(function(event) {
     }
 });
 
+/****************** nav functions ************/
+
+$('a.mdl-navigation__link').click(function(e) {
+    var card_id = this.href.replace('#','').replace('?','');
+    show_card_exact(card_id);
+    return false;
+})
+
 // auto fill an submit a code if given as a uri hash (#ABCDEFGH)
 $( window ).on( "load", function() {
     pot_code = $(location)[0].hash.replace('#','');
