@@ -128,6 +128,11 @@ function setSessionPw(sessionpw){
     storedValues.sessionpw = sessionpw;
 }
 
+function clearSession(){
+    storedValues.removeItem('sessionid');
+    storedValues.removeItem('sessionpw');
+}
+
 function doLogin(email,callback,error_element){
     doEndpointPost({'email':email},'auth/new_session',callback,error_element);
 }
@@ -138,6 +143,10 @@ function doRegister(email,name,callback,error_element){
 
 function doVerify(sessionid,verify,sessionpw,callback,error_element){
     doEndpointPost({'session':sessionid,'code':verify,'secret':sessionpw},'auth/verify_session',callback,error_element);
+}
+
+function doLogOut(sessionId,sessionPw,callback,error_element){
+    doEndpointPost({'session':sessionId,'secret':sessionPw},'auth/end_session',callback,error_element);
 }
 
 /*********************** Secret gen  ***************/

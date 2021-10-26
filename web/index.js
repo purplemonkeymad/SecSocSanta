@@ -172,6 +172,56 @@ $('form#register-email').submit(function(event) {
     }
 });
 
+// login button
+$('form#login-email').submit(function(event) {
+    event.preventDefault();
+    var login_email = $('input#login-email')[0].value;
+    error_object = $('div#login-email-error');
+    error_object.text("");
+    if (!login_email.match('.+@.+')){
+        error_object.text("Please Enter an email address.");
+    } else {
+        doLogin(login_email,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.addClass('error-text');
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                error_object.removeClass('error-text');
+                // save session id
+                setSessionId(json_data.session);
+                set_buttons_from_status();
+                show_card_matching('verify');
+            }
+        },error_object);
+    }
+});
+
+// logout button
+$('form#logout-session').submit(function(event) {
+    event.preventDefault();
+    var creds = getSessionCredentials();
+    error_object = $('div#logout-error');
+    error_object.text("");
+    if (getStoredLoginStatus() != 'loggedIn') {
+        error_object.text("Not logged in.");
+    } else if (!creds.session){
+        error_object.text("No logon session.");
+    } else {
+        doLogOut(creds.session,creds.secret,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.addClass('error-text');
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                error_object.removeClass('error-text');
+                show_card_matching('home');
+            }
+            clearSession();
+            set_buttons_from_status();
+        },error_object);
+    }
+});
+
+
 // verify button
 $("form#verify-code").submit(function(event){
     event.preventDefault();
@@ -213,6 +263,11 @@ $( window ).on( "load", function() {
 
     // hide buttons you can't use yet
     set_buttons_from_status();
+
+    // check if verify is needed and go to that card
+    if (getStoredLoginStatus() == 'verifyNeeded'){
+        show_card_exact('verify');
+    }
 
     pot_code = $(location)[0].hash.replace('#','');
     if (pot_code.length == 8) {
