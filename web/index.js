@@ -41,15 +41,15 @@ $("#enter-gamecode").submit( function(event) {
 $("#game-actions-ran").submit(function(event) {
     event.preventDefault();
     code = $('#gamecode')[0].value;
-    name = $("#results-username")[0].value;
+    username = $("#results-username")[0].value;
     error_object = $('#gameran-error');
     error_object.text("");
     if (code.length != 8) {
         error_object.text("Codes should be exactly 8 characters long. Did you modify the input?");
-    } else if (name.length == 0) {
+    } else if (username.length == 0) {
         error_object.text("You must input a name.");
     } else {
-        get_user(code,name,function(json_data){
+        get_user(code,username,function(json_data){
             $('[id^=game-info-ran-]').each(function (i){
                 $(this).css('display','none');
             });
@@ -90,15 +90,15 @@ $("#button-game-register").off('click').on('click',function (event) {
 $('#enter-name-register').submit(function(event) {
     event.preventDefault();
     code = $('#gamecode')[0].value;
-    name = $("#register-username")[0].value;
+    username = $("#register-username")[0].value;
     error_object = $('#gameregister-error');
     error_object.text("");
     if (code.length != 8) {
         error_object.text("Codes should be exactly 8 characters long. Did you modify the input?");
-    } else if (name.length == 0) {
+    } else if (username.length == 0) {
         error_object.text("You must input a name.");
     } else {
-        add_user(code,name,function(json_data){
+        add_user(code,username,function(json_data){
             if (json_data.status == 'error'){
                 error_object.addClass('error-text');
                 error_object.text(json_data.statusdetail);
@@ -158,7 +158,7 @@ $('a.mdl-navigation__link').click(function(e) {
 $( window ).on( "load", function() {
 
     // hide buttons you can't use yet
-    $(".needs-login").css('display','none');
+    set_buttons_from_status();
 
     pot_code = $(location)[0].hash.replace('#','');
     if (pot_code.length == 8) {
@@ -167,3 +167,24 @@ $( window ).on( "load", function() {
         $("#enter-gamecode").submit();
     }
 });
+
+/******************** index functions ********************/
+
+function set_buttons_from_status(){
+    var currentstatus = getStoredLoginStatus();
+    if (currentstatus == "loggedIn") {
+        $(".needs-login").css('display','block');
+        $(".needs-logout").css('display','none');
+        $(".needs-verify").css('display','none');
+
+    } else if (currentstatus == "loggedOut") {
+        $(".needs-login").css('display','none');
+        $(".needs-logout").css('display','block');
+        $(".needs-verify").css('display','none');
+
+    } else if (currentstatus == "verifyNeeded") {
+        $(".needs-login").css('display','none');
+        $(".needs-logout").css('display','block');
+        $(".needs-verify").css('display','block');
+    }
+}
