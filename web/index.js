@@ -172,6 +172,34 @@ $('form#register-email').submit(function(event) {
     }
 });
 
+// verify button
+$("form#verify-code").submit(function(event){
+    event.preventDefault();
+    var verify_code = $('input#verify-email')[0].value;
+    var session = getSessionCredentials().session;
+    error_object = $('div#verify-code-error');
+    error_object.text("");
+    if (verify_code.length == 0){
+        error_object.text("Please Enter a code.");
+    } else if (session.length == 0) {
+        error_object.text("Session ID missing, try a new login instead.");
+    } else {
+        var localPass = generateId();
+        doVerify(session,verify_code,localPass,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.addClass('error-text');
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                // save session id
+                setSessionId(json_data.session);
+                setSessionPw(localPass);
+                set_buttons_from_status();
+                show_card_matching('home');
+            }
+        },error_object);
+    }
+});
+
 /****************** nav functions ************/
 
 $('a.mdl-navigation__link').click(function(e) {
