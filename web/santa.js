@@ -104,12 +104,17 @@ function getStoredLoginStatus(){
     }
 }
 
-function getSessionCrednetinals(){
-    if (getStoredLoginStatus() == "loggedIn") {
+function getSessionCredentials(){
+    currentStatus = getStoredLoginStatus()
+    if (currentStatus== "loggedIn") {
         return {
             "session" : storedValues.sessionid,
             "secret" : storedValues.sessionpw,
         };
+    } else if (currentStatus == "verifyNeeded") {
+        return {
+            "session" : storedValues.sessionid,
+        }
     } else {
         return {};
     }

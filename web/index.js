@@ -146,6 +146,32 @@ $('#enter-idea').submit(function(event) {
     }
 });
 
+// register email button
+$('form#register-email').submit(function(event) {
+    event.preventDefault();
+    var register_email = $('input#register-email')[0].value;
+    var register_name = $('input#register-name')[0].value;
+    error_object = $('div#register-email-error');
+    error_object.text("");
+    if (!register_email.match('.+@.+')){
+        error_object.text("Please Enter an email address.");
+    } else if (register_name.length == 0) {
+        error_object.text("Please Enter a Display Name for yourself.");
+    } else {
+        doRegister(register_email,register_name,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.addClass('error-text');
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                // save session id
+                setSessionId(json_data.session);
+                set_buttons_from_status();
+                show_card_matching('verify');
+            }
+        },error_object);
+    }
+});
+
 /****************** nav functions ************/
 
 $('a.mdl-navigation__link').click(function(e) {
