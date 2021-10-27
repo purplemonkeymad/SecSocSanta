@@ -278,6 +278,11 @@ $( window ).on( "load", function() {
 });
 
 function nav_event_game_list(){
+    // remove existing items if any
+
+    $('#game-owned-list li').remove();
+    $('#game-joined-list li').remove();
+
     error_object = $('div#game-list-error');
     error_object.text("");
     getOwnedGroupList(function(json_data) {
