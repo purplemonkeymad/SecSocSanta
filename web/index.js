@@ -278,6 +278,10 @@ $('a.mdl-navigation__link').click(function(e) {
     e.preventDefault();
     var card_id = this.href.replace(/.*\#/,'').replace(/.*\?/,'');
     show_card_exact(card_id);
+    // remove draw only if visible
+    if ($( '.mdl-layout__drawer')[0].classList.contains('is-visible')){
+        $('.mdl-layout')[0].MaterialLayout.toggleDrawer();
+    }
 })
 
 // auto fill an submit a code if given as a uri hash (#ABCDEFGH)
