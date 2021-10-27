@@ -59,11 +59,12 @@
                     <a class="mdl-navigation__link needs-login" href="?logout">Logout</a>
                     <a class="mdl-navigation__link needs-verify" href="?verify">Verify Login</a>
                     <a class="mdl-navigation__link needs-logout" href="?register">Register</a>
-                    <a class="mdl-navigation__link needs-login" href="?groups">My Groups</a>
+                    <a class="mdl-navigation__link needs-login" href="?game-list">My Groups</a>
                     <a class="mdl-navigation__link needs-login" href="?join">Join</a>
                 </nav>
             </div>
             <main id="main" class="mdl-layout__content">
+            <!-- Home -->
             <div id="home" class="default-show topcards mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__supporting-text">
                     <p>Welcome to the Sec Soc Secret Santa or SSSS.</p>
@@ -78,6 +79,7 @@
                 </form>
                 <div id="gamecode-error" class="error-text mdl-card__supporting-text"></div>
             </div>
+            <!-- Registration card -->
             <div id="register" class="topcards mdl-card mdl-shadow--2dp">
                 <h1 class="mdl-card__title-text">Register for an account on SecSoc Secret Santa.</h1>
                 <div class="mdl-card__supporting-text">
@@ -104,6 +106,7 @@
                     </p>
                 </div>
             </div>
+            <!-- Login Card -->
             <div id="login" class="topcards mdl-card mdl-shadow--2dp">
                 <h1 class="mdl-card__title-text">Login to your account.</h1>
                 <div class="mdl-card__supporting-text">
@@ -141,6 +144,7 @@
                 </form>
                 <div id="logout-error" class="error-text mdl-card__supporting-text"></div>
             </div>
+            <!-- Verify Card -->
             <div id="verify" class="topcards mdl-card mdl-shadow--2dp">
                 <h1 class="mdl-card__title-text">Login to your account.</h1>
                 <div class="mdl-card__supporting-text">
@@ -161,6 +165,28 @@
                         Your email will only be stored for login and verification purposes.
                     </p>
                 </div>
+            </div>
+            <!-- Game list card -->
+            <div id="game-list" class="topcards mdl-card mdl-shadow--2dp" >
+                <h1 class="mdl-card__title-text">Your list of Groups.</h1>
+                <div id="game-list-error" class="error-text mdl-card__supporting-text"></div>
+                <template id="game-owned-item">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content" id="li-item-name"></span>
+                        <span class="mdl-list__item-primary-content" id="li-item-code"></span>
+                        <span class="mdl-list__item-primary-content" id="li-item-status"></span>
+                    </li>
+                </template>
+                <ul class="demo-list-item mdl-list" id="game-owned-list"></ul>
+                <template id="game-joined-item">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content" id="li-item-name"></span>
+                        <span class="mdl-list__item-primary-content" id="li-item-code"></span>
+                        <span class="mdl-list__item-primary-content" id="li-item-status"></span>
+                        <span class="mdl-list__item-primary-content" id="li-item-username"></span>
+                    </li>
+                </template>
+                <ul class="demo-list-item mdl-list" id="game-joined-list"></ul>
             </div>
             <div id="game-info-open" class="topcards mdl-card mdl-shadow--2dp" >
                 <h1 class="mdl-card__title-text"></h1>

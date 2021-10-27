@@ -85,8 +85,20 @@ function show_card_exact(id_cards){
             $(this).css('display','none');
         }
     });
+    var navFunctionName = "nav_event_" + id_cards.replace('-','_');
+    if (typeof window[navFunctionName] === 'function'){
+        var funcObject = window[navFunctionName];
+        funcObject();
+    }
 }
 
+function getTemplate(query){
+    return $(query)[0].content.cloneNode(true);
+}
+
+function insertItemToNode(targetSelector,insertObject){
+    $(targetSelector).append(insertObject);
+}
 
 /************* login storage *************/
 
@@ -164,4 +176,29 @@ function generateId (len) {
     var arr = new Uint8Array((len || 60) / 2)
     window.crypto.getRandomValues(arr)
     return Array.from(arr, dec2hex).join('')
+}
+
+/***********new group view *************/
+function getOwnedGroupList(callback,error_element) {
+    if (getStoredLoginStatus() == "loggedIn"){
+        var creds = getSessionCredentials();
+        doEndpointPost({
+            'session': creds.session,
+            'secret' : creds.secret,
+        },'game/owned',callback,error_element);
+    } else {
+        error_element.text('Not logged on.')
+    }
+}
+
+function getJoinedGroupList(callback,error_element) {
+    if (getStoredLoginStatus() == "loggedIn"){
+        var creds = getSessionCredentials();
+        doEndpointPost({
+            'session': creds.session,
+            'secret' : creds.secret,
+        },'game/joined',callback,error_element);
+    } else {
+        error_element.text('Not logged on.')
+    }
 }

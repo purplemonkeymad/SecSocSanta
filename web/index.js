@@ -253,9 +253,9 @@ $("form#verify-code").submit(function(event){
 /****************** nav functions ************/
 
 $('a.mdl-navigation__link').click(function(e) {
-    var card_id = this.href.replace('#','').replace('?','');
+    e.preventDefault();
+    var card_id = this.href.replace(/.*\#/,'').replace(/.*\?/,'');
     show_card_exact(card_id);
-    return false;
 })
 
 // auto fill an submit a code if given as a uri hash (#ABCDEFGH)
@@ -276,6 +276,43 @@ $( window ).on( "load", function() {
         $("#enter-gamecode").submit();
     }
 });
+
+function nav_event_game_list(){
+    error_object = $('div#game-list-error');
+    error_object.text("");
+    getOwnedGroupList(function(json_data) {
+        if (json_data.status == 'error'){
+            error_object.addClass('error-text');
+            error_object.text(json_data.statusdetail);
+        } else if (json_data.status == 'ok'){
+            var grouplist = json_data.grouplist;
+            grouplist.forEach(g => {
+                var row = getTemplate('#game-owned-item');
+                row.querySelector('#li-item-name').innerText = g.name;
+                row.querySelector('#li-item-code').innerText = g.code;
+                row.querySelector('#li-item-status').innerText = g.state;
+                $('#game-owned-list').append(row);
+            });
+        }
+    },error_object);
+    getJoinedGroupList(function(json_data) {
+        if (json_data.status == 'error'){
+            error_object.addClass('error-text');
+            error_object.text(json_data.statusdetail);
+        } else if (json_data.status == 'ok'){
+            var grouplist = json_data.grouplist;
+            grouplist.forEach(g => {
+                var row = getTemplate('#game-joined-item');
+                row.querySelector('#li-item-name').innerText = g.name;
+                row.querySelector('#li-item-code').innerText = g.code;
+                row.querySelector('#li-item-status').innerText = g.state;
+                row.querySelector('#li-item-username').innerText = g.joinname;
+                $('#game-joined-list').append(row);
+            });
+        }
+    },error_object);
+    
+}
 
 /******************** index functions ********************/
 
