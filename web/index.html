@@ -68,16 +68,7 @@
             <div id="home" class="default-show topcards mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__supporting-text">
                     <p>Welcome to the Sec Soc Secret Santa or SSSS.</p>
-                    <p>Put the group code you were given in the following box to access actions:</p>
                 </div>
-                <form id="enter-gamecode" action="">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="gamecode">
-                        <label class="mdl-textfield__label" for="gamecode">Group Code...</label>
-                    </div>
-                    <button id="enter-gamecode-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Check</button>
-                </form>
-                <div id="gamecode-error" class="error-text mdl-card__supporting-text"></div>
             </div>
             <!-- Registration card -->
             <div id="register" class="topcards mdl-card mdl-shadow--2dp">
@@ -157,7 +148,7 @@
                         <input class="mdl-textfield__input" type="text" id="verify-email">
                         <label class="mdl-textfield__label" for="verify-email">Verify code (eg 123456)</label>
                     </div>
-                    <button id="verify-code-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Register</button>
+                    <button id="verify-code-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Verify</button>
                 </form>
                 <div id="verify-code-error" class="error-text mdl-card__supporting-text"></div>
                 <div class="mdl-card__supporting-text">
@@ -187,6 +178,24 @@
                     </li>
                 </template>
                 <ul class="demo-list-item mdl-list" id="game-joined-list"></ul>
+            </div>
+            <!-- join card -->
+            <div id="join" class="topcards mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__supporting-text">
+                    <p>Put the group code you were given in the following box to join the group. You can also set a custom join name if you do not want to use your signup name.</p>
+                </div>
+                <form id="join-group" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="join-group-code">
+                        <label class="mdl-textfield__label" for="join-group-code">Group Code.</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="join-group-name">
+                        <label class="mdl-textfield__label" for="join-group-name">Name (optional)</label>
+                    </div>
+                    <button id="join-group-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Join</button>
+                </form>
+                <div id="join-error" class="error-text mdl-card__supporting-text"></div>
             </div>
             <div id="game-info-open" class="topcards mdl-card mdl-shadow--2dp" >
                 <h1 class="mdl-card__title-text"></h1>

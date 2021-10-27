@@ -86,6 +86,28 @@ $("#button-game-register").off('click').on('click',function (event) {
     $('#game-info-open-register').css('display','block');
 })
 
+// replacement join game function
+$('form#join-group').submit(function(event){
+    event.preventDefault();
+    error_object = $('div#join-error');
+    error_object.text("");
+    var code = $('input#join-group-code')[0].value;
+    var name = $('input#join-group-name')[0].value;
+    joinGroup(code,name,function(json_data){
+        if (json_data.status == 'error'){
+            error_object.addClass('error-text');
+            error_object.text(json_data.statusdetail);
+        } else if (json_data.status == 'ok'){
+            error_object.removeClass('error-text');
+            if (json_data.join_status == 'Existing'){
+                error_object.text('You already are joined to this group.');
+            } else {
+                error_object.text(('You Joined ' + json_data.gamename + ' as ' + json_data.name));
+            }
+        }
+    },error_object);
+});
+
 // do register
 $('#enter-name-register').submit(function(event) {
     event.preventDefault();
@@ -277,6 +299,8 @@ $( window ).on( "load", function() {
     }
 });
 
+/*******************  on nav to card functions ************/
+
 function nav_event_game_list(){
     // remove existing items if any
 
@@ -317,6 +341,11 @@ function nav_event_game_list(){
         }
     },error_object);
     
+}
+
+function nav_event_join(){
+    clearMaterialInputBox('#join-group-code')
+    clearMaterialInputBox('#join-group-name')
 }
 
 /******************** index functions ********************/

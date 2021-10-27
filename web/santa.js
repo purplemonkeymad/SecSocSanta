@@ -21,6 +21,16 @@ function add_user(code,name,callback,error_element){
     $.post(uri,post_data,callback, 'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
 
+function joinGroup(code,name,callback,error_element){
+    if (getStoredLoginStatus() == "loggedIn"){
+        post = {'code':code,'name':name}
+        $.extend(post,getSessionCredentials());
+        doEndpointPost(post,'join_game',callback,error_element);
+    } else {
+        error_element.text = "Not logged in.";
+    }
+}
+
 function add_idea(code,idea,callback,error_element){
     var uri = backendUri + '/idea';
     var idea_post_data = JSON.stringify({'code': code,'idea': idea});
@@ -98,6 +108,10 @@ function getTemplate(query){
 
 function insertItemToNode(targetSelector,insertObject){
     $(targetSelector).append(insertObject);
+}
+
+function clearMaterialInputBox(selector){
+    $(selector).val('').parent().removeClass('is-focused').removeClass('is-dirty');
 }
 
 /************* login storage *************/
