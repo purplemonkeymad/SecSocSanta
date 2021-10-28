@@ -38,6 +38,14 @@ a.needs-logout {
 .group-list-row {
     flex: 0 0 100%;
 }
+.group-card{
+    min-height: 50px;
+}
+.group-card-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 
 /* accordion css https://codepen.io/mjmaix/pen/JEYzyq */
 
