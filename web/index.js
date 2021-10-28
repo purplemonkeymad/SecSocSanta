@@ -332,6 +332,7 @@ function nav_event_game_list(){
                 });
                 $(rowInDocument).find('.mdl-accordion__button').on('click', function(){
                     $(this).parent('.mdl-accordion').toggleClass('mdl-accordion--opened');
+                    getGameOnExpand(this,$('#game-list-error'));
                 });
                 // set button status.
                 if (g.state != 0){
@@ -391,5 +392,24 @@ function set_buttons_from_status(){
         $(".needs-login").css('display','none');
         $(".needs-logout").css('display','block');
         $(".needs-verify").css('display','block');
+    }
+}
+
+function getGameOnExpand(element,error_object){
+    var localRoot = $(element).parent()
+    if (localRoot.find('#group-sum-card').hasClass('is-filled')){
+        // nothing to do
+    } else {
+        var code = $(element).find('#li-item-code').text()
+        get_game_summary(code,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.addClass('error-text');
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){  
+                localRoot.find('#group-sum-members').text(json_data.santas);
+                localRoot.find('#group-sum-ideas').text(json_data.ideas);
+                localRoot.find('#group-sum-card').addClass('is-filled')
+            }
+        },error_object);
     }
 }

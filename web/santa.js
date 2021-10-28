@@ -61,6 +61,16 @@ function list_users(code,secret,callback,error_element){
     $.post(uri,list_users_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
 
+function get_game_summary(code,callback,error_element){
+    if (getStoredLoginStatus() == "loggedIn"){
+        post = {'code':code}
+        $.extend(post,getSessionCredentials());
+        doEndpointPost(post,'game_sum',callback,error_element);
+    } else {
+        error_element.text = "Not logged in.";
+    }
+}
+
 // get ideas that were not selected for anyone.
 function list_leftover_ideas(code,callback,error_element){
     var uri = backendUri + '/idea?code=' + code;
