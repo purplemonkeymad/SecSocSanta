@@ -324,7 +324,16 @@ function nav_event_game_list(){
                 row.querySelector('#li-item-name').innerText = g.name;
                 row.querySelector('#li-item-code').innerText = g.code;
                 row.querySelector('#li-item-status').innerText = g.state;
-                $('#game-owned-list').append(row);
+                var rowInDocument = $('#game-owned-list').append(row).children().last('li.mdl-list__item');
+                // set accordion properties
+                $(rowInDocument).find('.mdl-accordion__content').each(function(){
+                    var content = $(this);
+                    content.css('margin-top', -content.height());
+                });
+                $(rowInDocument).find('.mdl-accordion__button').on('click', function(){
+                    $(this).parent('.mdl-accordion').toggleClass('mdl-accordion--opened');
+                });
+
             });
         }
     },error_object);
@@ -340,7 +349,15 @@ function nav_event_game_list(){
                 row.querySelector('#li-item-code').innerText = g.code;
                 row.querySelector('#li-item-status').innerText = g.state;
                 row.querySelector('#li-item-username').innerText = g.joinname;
-                $('#game-joined-list').append(row);
+                var rowInDocument = $('#game-joined-list').append(row).append(row).children().last('li.mdl-list__item');
+                // set accordion properties
+                $(rowInDocument).find('.mdl-accordion__content').each(function(){
+                    var content = $(this);
+                    content.css('margin-top', -content.height());
+                });
+                $(rowInDocument).find('.mdl-accordion__button').on('click', function(){
+                    $(this).parent('.mdl-accordion').toggleClass('mdl-accordion--opened');
+                });
             });
         }
     },error_object);
