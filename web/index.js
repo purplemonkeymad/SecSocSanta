@@ -323,7 +323,7 @@ function nav_event_game_list(){
                 var row = getTemplate('#game-owned-item');
                 row.querySelector('#li-item-name').innerText = g.name;
                 row.querySelector('#li-item-code').innerText = g.code;
-                row.querySelector('#li-item-status').innerText = g.state;
+                row.querySelector('#li-item-status').innerText = ['Open','Rolled','Closed'][g.state];
                 var rowInDocument = $('#game-owned-list').append(row).children().last('li.mdl-list__item');
                 // set accordion properties
                 $(rowInDocument).find('.mdl-accordion__content').each(function(){
@@ -333,6 +333,10 @@ function nav_event_game_list(){
                 $(rowInDocument).find('.mdl-accordion__button').on('click', function(){
                     $(this).parent('.mdl-accordion').toggleClass('mdl-accordion--opened');
                 });
+                // set button status.
+                if (g.state != 0){
+                    $(rowInDocument).find('#roll-button').attr('disabled','');
+                }
 
             });
         }
@@ -347,7 +351,7 @@ function nav_event_game_list(){
                 var row = getTemplate('#game-joined-item');
                 row.querySelector('#li-item-name').innerText = g.name;
                 row.querySelector('#li-item-code').innerText = g.code;
-                row.querySelector('#li-item-status').innerText = g.state;
+                row.querySelector('#li-item-status').innerText = ['Open','Rolled','Closed'][g.state];
                 row.querySelector('#li-item-username').innerText = g.joinname;
                 var rowInDocument = $('#game-joined-list').append(row).append(row).children().last('li.mdl-list__item');
                 // set accordion properties
