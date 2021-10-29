@@ -295,12 +295,6 @@ $( window ).on( "load", function() {
         show_card_exact('verify');
     }
 
-    pot_code = $(location)[0].hash.replace('#','');
-    if (pot_code.length == 8) {
-        // good enough
-        $('#gamecode').val(pot_code).parent().addClass('is-focused');
-        $("#enter-gamecode").submit();
-    }
 });
 
 /*******************  on nav to card functions ************/
