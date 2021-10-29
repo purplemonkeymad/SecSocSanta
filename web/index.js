@@ -366,6 +366,7 @@ function nav_event_game_list(){
                 });
                 $(rowInDocument).find('.mdl-accordion__button').on('click', function(){
                     $(this).parent('.mdl-accordion').toggleClass('mdl-accordion--opened');
+                    getJoinedGameOnExpand($(this).parent(),$('#game-list-error'));
                 });
             });
         }
@@ -415,5 +416,17 @@ function getOwnedGameOnExpand(element,error_object){
                 localRoot.find('#group-sum-card').addClass('is-filled')
             }
         },error_object);
+    }
+}
+
+function getJoinedGameOnExpand(element,error_object){
+    var localRoot = $(element);
+    var openStatus = localRoot.find('#li-item-status').text();
+    if (openStatus == 'Open') {
+        localRoot.find('#group-list-open').css('display','none');
+        localRoot.find('#group-list-rolled').css('display','block');
+    } else if (openStatus == 'Rolled') {
+        localRoot.find('#group-list-open').css('display','block');
+        localRoot.find('#group-list-rolled').css('display','none');
     }
 }
