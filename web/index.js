@@ -428,7 +428,8 @@ function getJoinedGameOnExpand(element,error_object){
         localRoot.find('#game-list-new-idea').submit(function(event) {
             event.preventDefault();
             var code = localRoot.find('#li-item-code').text();
-            var idea = localRoot.find('#game-list-register-idea').val();
+            var ideaBox = localRoot.find('#game-list-register-idea');
+            var idea = ideaBox.val();
             error_object = localRoot.find('#game-list-idearegister-error');
             error_object.text("");
             if (idea.length == 0) {
@@ -442,7 +443,7 @@ function getJoinedGameOnExpand(element,error_object){
                         error_object.text(json_data.statusdetail);
                     } else if (json_data.status == 'ok'){
                         error_object.removeClass('error-text');
-                        clearMaterialInputBox('#game-list-register-idea');
+                        clearMaterialInputBox(ideaBox);
                         error_object.text("Successful Submission.");
                     }
                 },error_object);
