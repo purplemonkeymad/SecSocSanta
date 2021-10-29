@@ -77,6 +77,13 @@ function list_leftover_ideas(code,callback,error_element){
     $.getJSON(uri,callback).fail(function(e){ error_element.text("Unable to contact server.") })
 }
 
+// get group selection results
+function get_group_results(code,callback,error_element){
+    var post = {'code':code};
+    $.extend(post,getSessionCredentials());
+    doEndpointPost(post,'results',callback,error_element);
+}
+
 function getEndpoint(name){
     return (backendUri + '/' + name);
 }

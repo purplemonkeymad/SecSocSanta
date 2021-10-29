@@ -356,7 +356,7 @@ function nav_event_game_list(){
                 row.querySelector('#li-item-code').innerText = g.code;
                 row.querySelector('#li-item-status').innerText = ['Open','Rolled','Closed'][g.state];
                 row.querySelector('#li-item-username').innerText = g.joinname;
-                var rowInDocument = $('#game-joined-list').append(row).append(row).children().last('li.mdl-list__item');
+                var rowInDocument = $('#game-joined-list').append(row).children().last('li.mdl-list__item');
                 // set mdl events
                 componentHandler.upgradeElements(rowInDocument);
                 // set accordion properties
@@ -425,6 +425,7 @@ function getJoinedGameOnExpand(element,error_object){
     if (openStatus == 'Open') {
         localRoot.find('#group-list-open').css('display','block');
         localRoot.find('#group-list-rolled').css('display','none');
+        // register idea action
         localRoot.find('#game-list-new-idea').submit(function(event) {
             event.preventDefault();
             var code = localRoot.find('#li-item-code').text();
@@ -452,5 +453,30 @@ function getJoinedGameOnExpand(element,error_object){
     } else if (openStatus == 'Rolled') {
         localRoot.find('#group-list-open').css('display','none');
         localRoot.find('#group-list-rolled').css('display','block');
+        // get results
+        var code = $(element).find('#li-item-code').text()
+        error_object = localRoot.find('#game-list-results-error');
+        error_object.text("");
+        get_group_results(code,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.addClass('error-text');
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                localRoot.find('#giftee-anounce').text(json_data.giftee);
+                var idea_list = json_data.ideas;
+                if (idea_list.length > 0){
+                    idea_list.forEach(i => {
+                        var row = getTemplate('#game-results-idea-listitem');
+                        $(row).find('.idea-item').text(i);
+                        var rowInDocument = localRoot.find('#game-results-list').append(row).children().last('li.mdl-list__item');
+                        // set mdl events
+                        componentHandler.upgradeElements(rowInDocument);
+                    });
+                } else {
+                    error_object.addClass('error-text');
+                    error_object.text("No ideas given, please reload.");
+                }
+            }
+        },error_object);
     }
 }
