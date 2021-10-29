@@ -32,9 +32,9 @@ function joinGroup(code,name,callback,error_element){
 }
 
 function add_idea(code,idea,callback,error_element){
-    var uri = backendUri + '/idea';
-    var idea_post_data = JSON.stringify({'code': code,'idea': idea});
-    $.post(uri,idea_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+    var idea_post_data = {'code': code,'idea': idea};
+    $.extend(idea_post_data,getSessionCredentials());
+    doEndpointPost(idea_post_data,'idea',callback,error_element)
 }
 
 function get_auth(code,secret,callback,error_element){

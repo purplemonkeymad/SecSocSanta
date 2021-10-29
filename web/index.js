@@ -420,13 +420,36 @@ function getOwnedGameOnExpand(element,error_object){
 }
 
 function getJoinedGameOnExpand(element,error_object){
-    var localRoot = $(element);
+    localRoot = $(element);
     var openStatus = localRoot.find('#li-item-status').text();
     if (openStatus == 'Open') {
-        localRoot.find('#group-list-open').css('display','none');
-        localRoot.find('#group-list-rolled').css('display','block');
-    } else if (openStatus == 'Rolled') {
         localRoot.find('#group-list-open').css('display','block');
         localRoot.find('#group-list-rolled').css('display','none');
+        localRoot.find('#game-list-new-idea').submit(function(event) {
+            event.preventDefault();
+            var code = localRoot.find('#li-item-code').text();
+            var idea = localRoot.find('#game-list-register-idea').val();
+            error_object = localRoot.find('#game-list-idearegister-error');
+            error_object.text("");
+            if (idea.length == 0) {
+                error_object.text("You must input an idea.");
+            } else if (idea.length > 260) {
+                error_object.text("Ideas are limited to 260 Characters, be more succinct.")
+            } else {
+                add_idea(code,idea,function(json_data){
+                    if (json_data.status == 'error'){
+                        error_object.addClass('error-text');
+                        error_object.text(json_data.statusdetail);
+                    } else if (json_data.status == 'ok'){
+                        error_object.removeClass('error-text');
+                        clearMaterialInputBox('#game-list-register-idea');
+                        error_object.text("Successful Submission.");
+                    }
+                },error_object);
+            }
+        });
+    } else if (openStatus == 'Rolled') {
+        localRoot.find('#group-list-open').css('display','none');
+        localRoot.find('#group-list-rolled').css('display','block');
     }
 }
