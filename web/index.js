@@ -325,6 +325,8 @@ function nav_event_game_list(){
                 row.querySelector('#li-item-code').innerText = g.code;
                 row.querySelector('#li-item-status').innerText = ['Open','Rolled','Closed'][g.state];
                 var rowInDocument = $('#game-owned-list').append(row).children().last('li.mdl-list__item');
+                // set mdl events
+                componentHandler.upgradeElements(rowInDocument);
                 // set accordion properties
                 $(rowInDocument).find('.mdl-accordion__content').each(function(){
                     var content = $(this);
@@ -332,7 +334,7 @@ function nav_event_game_list(){
                 });
                 $(rowInDocument).find('.mdl-accordion__button').on('click', function(){
                     $(this).parent('.mdl-accordion').toggleClass('mdl-accordion--opened');
-                    getGameOnExpand(this,$('#game-list-error'));
+                    getOwnedGameOnExpand(this,$('#game-list-error'));
                 });
                 // set button status.
                 if (g.state != 0){
@@ -355,6 +357,8 @@ function nav_event_game_list(){
                 row.querySelector('#li-item-status').innerText = ['Open','Rolled','Closed'][g.state];
                 row.querySelector('#li-item-username').innerText = g.joinname;
                 var rowInDocument = $('#game-joined-list').append(row).append(row).children().last('li.mdl-list__item');
+                // set mdl events
+                componentHandler.upgradeElements(rowInDocument);
                 // set accordion properties
                 $(rowInDocument).find('.mdl-accordion__content').each(function(){
                     var content = $(this);
@@ -395,7 +399,7 @@ function set_buttons_from_status(){
     }
 }
 
-function getGameOnExpand(element,error_object){
+function getOwnedGameOnExpand(element,error_object){
     var localRoot = $(element).parent()
     if (localRoot.find('#group-sum-card').hasClass('is-filled')){
         // nothing to do

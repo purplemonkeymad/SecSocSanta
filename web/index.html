@@ -200,13 +200,38 @@
                             </ul>
                             <div class="mdl-accordion__content-wrapper">
                                 <div class="mdl-accordion__content mdl-animation--default">
-                                    Not loaded yet.
+                                    <div id="group-list-open"><!-- idea submissions -->
+                                        <p class="mdl-card__title-text">Group is currently open for suggestions.</p>
+                                        <form id="enter-idea" action="">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="text" id="register-idea">
+                                                <label class="mdl-textfield__label" for="register-idea">Your gift suggestion here.</label>
+                                            </div>
+                                            <button id="enter-idea-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Add it!</button>
+                                        </form>
+                                        <div id="idearegister-error" class="error-text mdl-card__supporting-text"></div>
+                                    </div>
+                                    <div id="group-list-rolled"><!-- person and idea results -->
+                                        <p class="mdl-card__title-text">Group has been rolled and the results are in. You will be gifting to:</p>
+                                        <h2 id="giftee-anounce" class="anounce-text"></h2>
+                                        <p class="mdl-card__supporting-text">You have been selected the following gift suggestions:</p>
+                                        <ul class="demo-list-item mdl-list" id="game-results-list">
+
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </li>
                 </template>
                 <ul class="demo-list-item mdl-list" id="game-joined-list"></ul>
+                <template id="game-results-idea-listitem">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            Example
+                        </span>
+                    </li>
+                </template>
             </div>
             <!-- join card -->
             <div id="join" class="topcards mdl-card mdl-shadow--2dp">
