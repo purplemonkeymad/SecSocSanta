@@ -295,6 +295,13 @@ $( window ).on( "load", function() {
         show_card_exact('verify');
     }
 
+    uri_view = location.search.replace('?','');
+    show_card_exact(uri_view);
+    // remove draw only if visible
+    if ($( '.mdl-layout__drawer')[0].classList.contains('is-visible')){
+        $('.mdl-layout')[0].MaterialLayout.toggleDrawer();
+    }
+
 });
 
 /*******************  on nav to card functions ************/
