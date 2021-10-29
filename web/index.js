@@ -334,7 +334,7 @@ function nav_event_game_list(){
                 });
                 $(rowInDocument).find('.mdl-accordion__button').on('click', function(){
                     $(this).parent('.mdl-accordion').toggleClass('mdl-accordion--opened');
-                    getOwnedGameOnExpand(this,$('#game-list-error'));
+                    getOwnedGameOnExpand($(this).parent(),$('#game-list-error'));
                 });
                 // set button status.
                 if (g.state != 0){
@@ -400,7 +400,7 @@ function set_buttons_from_status(){
 }
 
 function getOwnedGameOnExpand(element,error_object){
-    var localRoot = $(element).parent()
+    var localRoot = $(element)
     if (localRoot.find('#group-sum-card').hasClass('is-filled')){
         // nothing to do
     } else {
