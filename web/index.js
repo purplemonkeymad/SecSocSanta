@@ -326,7 +326,9 @@ $( window ).on( "load", function() {
     }
 
     uri_view = location.search.replace('?','');
-    show_card_exact(uri_view);
+    if (uri_view.length > 0){
+        show_card_exact(uri_view);
+    }
     // remove draw only if visible
     if ($( '.mdl-layout__drawer')[0].classList.contains('is-visible')){
         $('.mdl-layout')[0].MaterialLayout.toggleDrawer();
