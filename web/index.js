@@ -108,6 +108,36 @@ $('form#join-group').submit(function(event){
     },error_object);
 });
 
+// new group
+$("#new-group").submit( function(event) {
+    event.preventDefault();
+    group_name = $('#new-group-name').val();
+    error_object = $('#new-error');
+    error_object.addClass("error-text");
+    error_object.text("");
+    if (group_name.length == 0) {
+        error_object.text("Enter a name.");
+    } else {
+        new_group(group_name,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                // fill info into existing fields.
+                var result_element = getTemplate('#new-group-results-template');
+                $(result_element).find('#new-group-name-result').text(json_data.name);
+                $(result_element).find('#new-group-code-result').text(json_data.pubkey);
+                var new_element = $('#new-group-results').append(result_element).children().last('.new-group-results-item');
+                // set mdl events
+                componentHandler.upgradeElements(new_element);
+
+                clearMaterialInputBox('#new-group-name');
+            } else {
+                error_object.text("Invalid reply from API.");
+            }
+        },error_object)
+    }
+});
+
 // do register
 $('#enter-name-register').submit(function(event) {
     event.preventDefault();

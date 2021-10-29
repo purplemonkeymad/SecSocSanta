@@ -27,6 +27,15 @@ a.needs-login {
 a.needs-logout {
     display: block;
 }
+.group-code {
+    padding-left: 10px;
+    font-family: monospace;
+}
+.new-group-result--container{
+    display: flex;
+    padding-left: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}
 
 /* desktop display */
 @media only screen and (min-width: 768px) {

@@ -252,6 +252,32 @@
                 </form>
                 <div id="join-error" class="error-text mdl-card__supporting-text"></div>
             </div>
+            <!-- New group card -->
+            <div id="new" class="topcards mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__supporting-text">
+                    <p>You can create a new group here for a secret santa. Put in a display name for your group and you will be given a unique code for the group. Give it to others so they can join your group.</p>
+                </div>
+                <form id="new-group" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="new-group-name">
+                        <label class="mdl-textfield__label" for="new-group-name">Group Name</label>
+                    </div>
+                    <button id="join-group-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Create</button>
+                </form>
+                <template id="new-group-results-template">
+                    <div class="new-group-results-item">
+                        <p>Your group has been created. Share the below code with others do they can join the group.</p>
+                        <p class="new-group-result--container">
+                            Name: <span id="new-group-name-result" class="group-code"></span>
+                        </p>
+                        <p class="new-group-result--container">
+                            Code: <span id="new-group-code-result" class="group-code"></span>
+                        </p>
+                    </div>
+                </template>
+                <div id="new-group-results"  class="mdl-card__supporting-text"></div>
+                <div id="new-error" class="error-text mdl-card__supporting-text"></div>
+            </div>
             </main>
         </div>
     </body>

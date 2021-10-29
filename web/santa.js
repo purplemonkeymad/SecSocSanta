@@ -50,9 +50,13 @@ function roll_santas(code,secret,callback,error_element){
 }
 
 function new_group(name,callback,error_element){
-    var uri = backendUri + '/new';
-    var new_post_data = JSON.stringify({'name':name});
-    $.post(uri,new_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+     if (getStoredLoginStatus() == "loggedIn"){
+        post = {'name':name}
+        $.extend(post,getSessionCredentials());
+        doEndpointPost(post,'new',callback,error_element);
+    } else {
+        error_element.text = "Not logged in.";
+    }
 }
 
 function list_users(code,secret,callback,error_element){
