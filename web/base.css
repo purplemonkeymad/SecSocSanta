@@ -37,6 +37,15 @@ a.needs-logout {
     border-bottom: 1px solid rgba(0,0,0,.12);
 }
 
+#game-owned-list .mdl-list__item, #game-joined-list .mdl-list__item {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.group-list-container {
+    margin-left: 1em;
+}
+
 /* desktop display */
 @media only screen and (min-width: 768px) {
     .topcards {

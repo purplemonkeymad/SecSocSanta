@@ -352,6 +352,11 @@ function nav_event_game_list(){
             error_object.text(json_data.statusdetail);
         } else if (json_data.status == 'ok'){
             var grouplist = json_data.grouplist;
+            if (grouplist.length == 0){
+                $('#group-list-container-owned').css('display','none');
+            } else {
+                $('#group-list-container-owned').css('display','block');
+            }
             grouplist.forEach(g => {
                 var row = getTemplate('#game-owned-item');
                 row.querySelector('#li-item-name').innerText = g.name;
@@ -383,6 +388,11 @@ function nav_event_game_list(){
             error_object.text(json_data.statusdetail);
         } else if (json_data.status == 'ok'){
             var grouplist = json_data.grouplist;
+            if (grouplist.length == 0){
+                $('#group-list-container-joined').css('display','none');
+            } else {
+                $('#group-list-container-joined').css('display','block');
+            }
             grouplist.forEach(g => {
                 var row = getTemplate('#game-joined-item');
                 row.querySelector('#li-item-name').innerText = g.name;
