@@ -357,7 +357,7 @@ function nav_event_game_list(){
                 row.querySelector('#li-item-name').innerText = g.name;
                 row.querySelector('#li-item-code').innerText = g.code;
                 row.querySelector('#li-item-status').innerText = ['Open','Rolled','Closed'][g.state];
-                var rowInDocument = $('#game-owned-list').append(row).children().last('li.mdl-list__item');
+                var rowInDocument = $('#game-owned-list').append(row).children().last();
                 // set mdl events
                 componentHandler.upgradeElements(rowInDocument);
                 // set accordion properties
@@ -389,7 +389,7 @@ function nav_event_game_list(){
                 row.querySelector('#li-item-code').innerText = g.code;
                 row.querySelector('#li-item-status').innerText = ['Open','Rolled','Closed'][g.state];
                 row.querySelector('#li-item-username').innerText = g.joinname;
-                var rowInDocument = $('#game-joined-list').append(row).children().last('li.mdl-list__item');
+                var rowInDocument = $('#game-joined-list').append(row).children().last();
                 // set mdl events
                 componentHandler.upgradeElements(rowInDocument);
                 // set accordion properties
