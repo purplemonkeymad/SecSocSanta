@@ -66,8 +66,25 @@
             <main id="main" class="mdl-layout__content">
             <!-- Home -->
             <div id="home" class="default-show topcards mdl-card mdl-shadow--2dp">
-                <div class="mdl-card__supporting-text">
-                    <p>Welcome to the Sec Soc Secret Santa or SSSS.</p>
+                <div class="mdl-card__title">
+                    <h1 class="mdl-card__title-text">Welcome to the Sec Soc Secret Santa</h1>
+                </div>
+                <p class="mdl-card__supporting-text needs-logout">
+                    This site allows you to organize your secret santa selections and ideas. Register your account if you have not done so, or login if you have.
+                </p>
+                <p class="mdl-card__supporting-text needs-verify">
+                    Almost there, pop over to the verify page to prove your account ownership.
+                </p>
+                <p class="mdl-card__supporting-text needs-login">
+                    Welcome back. Check out your current groups, or create a new group. If you have been given a share code, you can join an existing group.
+                </p>
+                <div class="mdl-card__actions mdl-card--border">
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-logout" href="?login" >Login</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-login" href="?logout">Logout</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-verify" href="?verify">Verify Login</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-logout" href="?register">Register</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-login" href="?game-list">My Groups</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-login" href="?join">Join</a>
                 </div>
             </div>
             <!-- Registration card -->

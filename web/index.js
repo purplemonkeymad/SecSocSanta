@@ -427,19 +427,19 @@ function nav_event_join(){
 function set_buttons_from_status(){
     var currentstatus = getStoredLoginStatus();
     if (currentstatus == "loggedIn") {
-        $(".needs-login").css('display','block');
-        $(".needs-logout").css('display','none');
-        $(".needs-verify").css('display','none');
+        $(".needs-login").removeClass('nav-hidden');
+        $(".needs-logout").addClass('nav-hidden');
+        $(".needs-verify").addClass('nav-hidden');
 
     } else if (currentstatus == "loggedOut") {
-        $(".needs-login").css('display','none');
-        $(".needs-logout").css('display','block');
-        $(".needs-verify").css('display','none');
+        $(".needs-login").addClass('nav-hidden');
+        $(".needs-logout").removeClass('nav-hidden');
+        $(".needs-verify").addClass('nav-hidden');
 
     } else if (currentstatus == "verifyNeeded") {
-        $(".needs-login").css('display','none');
-        $(".needs-logout").css('display','block');
-        $(".needs-verify").css('display','block');
+        $(".needs-login").addClass('nav-hidden');
+        $(".needs-logout").removeClass('nav-hidden');
+        $(".needs-verify").removeClass('nav-hidden');
     }
 }
 

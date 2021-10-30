@@ -9,9 +9,6 @@ body {
     margin-left: auto;
     display: none;
 }
-.topcards > .mdl-card__title {
-    background-color: rgb(193, 255, 219);
-}
 .default-show {
     display: block;
 }
@@ -21,11 +18,8 @@ body {
 .mdl-layout__content{
     width: 100%;
 }
-a.needs-login {
-    display: none;
-}
-a.needs-logout {
-    display: block;
+.nav-hidden {
+    display: none !important;
 }
 .group-code {
     padding-left: 10px;
