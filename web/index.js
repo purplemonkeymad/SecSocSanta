@@ -238,6 +238,7 @@ function nav_event_game_list(){
 
     error_object = $('div#game-list-error');
     error_object.text("");
+    show_progress('#game-list-progress');
     getOwnedGroupList(function(json_data) {
         if (json_data.status == 'error'){
             error_object.addClass('error-text');
@@ -275,7 +276,8 @@ function nav_event_game_list(){
             error_object.removeClass('error-text');
             error_object.text('');
         }
-    },error_object);
+        hide_progress('#game-list-progress');
+    },error_object,'#game-list-progress');
     getJoinedGroupList(function(json_data) {
         if (json_data.status == 'error'){
             error_object.addClass('error-text');
@@ -309,7 +311,8 @@ function nav_event_game_list(){
             error_object.removeClass('error-text');
             error_object.text('');
         }
-    },error_object);
+        hide_progress('#game-list-progress');
+    },error_object,'#game-list-progress');
     
 }
 
