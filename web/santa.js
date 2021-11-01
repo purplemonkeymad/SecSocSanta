@@ -99,6 +99,7 @@ function getEndpoint(name){
 function doEndpointPost(data,path,callback,error_element,progress_element = null){
     var post_data = JSON.stringify(data);
     $.post(getEndpoint(path),post_data,callback,'json').fail(function(e){
+        error_object.addClass('error-text');
         error_element.text("Unable to contact server.")
         if (progress_element != null) {
             hide_progress(progress_element);

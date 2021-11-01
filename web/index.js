@@ -342,12 +342,13 @@ function set_buttons_from_status(){
     }
 }
 
-function getOwnedGameOnExpand(element,error_object){
+function getOwnedGameOnExpand(element,error_object,progress_element=null){
     var localRoot = $(element)
     if (localRoot.find('#group-sum-card').hasClass('is-filled')){
         // nothing to do
     } else {
         var code = $(element).find('#li-item-code').text()
+        show_progress(progress_element);
         get_game_summary(code,function(json_data){
             if (json_data.status == 'error'){
                 error_object.addClass('error-text');
@@ -365,29 +366,35 @@ function getOwnedGameOnExpand(element,error_object){
                     code = gameRoot.find('#li-item-code').text();
                     error_object = gameRoot.find('#game-entry-error');
                     error_object.text("");
+                    show_progress(gameRoot.find('#game-entry-progress'));
                     if (code.length != 8) {
                         error_object.text("Codes should be exactly 8 characters long.");
+                        hide_progress(gameRoot.find('#game-entry-progress'));
                     } else {
                         roll_santas(code,function(json_data){
                             if (json_data.status == 'error'){
                                 error_object.addClass("error-text");
                                 error_object.text(json_data.statusdetail);
+                                hide_progress(gameRoot.find('#game-entry-progress'));
                             } else if (json_data.status == 'ok'){
                                 error_object.removeClass('error-text');
                                 error_object.text("Success.");
+                                hide_progress(gameRoot.find('#game-entry-progress'));
                             } else {
                                 error_object.addClass("error-text");
                                 error_object.text("Invalid reply from API.");
+                                hide_progress(gameRoot.find('#game-entry-progress'));
                             }
-                        },error_object)
+                        },error_object,gameRoot.find('#game-entry-progress'));
                     }
                 })
+                hide_progress(progress_element);
             }
         },error_object);
     }
 }
 
-function getJoinedGameOnExpand(element,error_object){
+function getJoinedGameOnExpand(element,error_object,progress_element=null){
     localRoot = $(element);
     var openStatus = localRoot.find('#li-item-status').text();
     if (openStatus == 'Open') {
@@ -397,6 +404,7 @@ function getJoinedGameOnExpand(element,error_object){
         if (localRoot.find('#group-list-open').hasClass('is-filled')){
             // nothing to do
         } else {
+            show_progress(progress_element);
             localRoot.find('#game-list-new-idea').submit(function(event) {
                 event.preventDefault();
                 var code = localRoot.find('#li-item-code').text();
@@ -404,10 +412,14 @@ function getJoinedGameOnExpand(element,error_object){
                 var idea = ideaBox.val();
                 error_object = localRoot.find('#game-list-idearegister-error');
                 error_object.text("");
+                progress_object = localRoot.find('#game-list-idearegister-progress');
+                show_progress(progress_object);
                 if (idea.length == 0) {
                     error_object.text("You must input an idea.");
+                    hide_progress(progress_object);
                 } else if (idea.length > 260) {
                     error_object.text("Ideas are limited to 260 Characters, be more succinct.")
+                    hide_progress(progress_object);
                 } else {
                     add_idea(code,idea,function(json_data){
                         if (json_data.status == 'error'){
@@ -418,7 +430,8 @@ function getJoinedGameOnExpand(element,error_object){
                             clearMaterialInputBox(ideaBox);
                             error_object.text("Successful Submission.");
                         }
-                    },error_object);
+                        hide_progress(progress_object);
+                    },error_object,progress_object);
                 }
             });
             localRoot.find('#group-list-open').addClass('is-filled');
@@ -430,6 +443,7 @@ function getJoinedGameOnExpand(element,error_object){
         if (localRoot.find('#group-list-rolled').hasClass('is-filled')){
             // nothing to do
         } else {
+            show_progress(progress_element);
             var code = $(element).find('#li-item-code').text()
             error_object = localRoot.find('#game-list-results-error');
             error_object.text("");
@@ -456,6 +470,7 @@ function getJoinedGameOnExpand(element,error_object){
                     }
                     localRoot.find('#group-list-rolled').addClass('is-filled');
                 }
+                hide_progress(progress_element);
             },error_object);
         }
     }
