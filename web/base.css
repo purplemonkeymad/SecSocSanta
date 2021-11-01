@@ -14,7 +14,11 @@ body {
 }
 .error-text {
     color: red;
-}
+    padding: 1px;
+    margin: 10px;
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0.05);
+    }
 .mdl-layout__content{
     width: 100%;
 }

@@ -6,22 +6,28 @@
 $('form#join-group').submit(function(event){
     event.preventDefault();
     error_object = $('div#join-error');
+    error_object.removeClass('error-text');
     error_object.text("");
     var code = $('input#join-group-code')[0].value;
     var name = $('input#join-group-name')[0].value;
-    joinGroup(code,name,function(json_data){
-        if (json_data.status == 'error'){
-            error_object.addClass('error-text');
-            error_object.text(json_data.statusdetail);
-        } else if (json_data.status == 'ok'){
-            error_object.removeClass('error-text');
-            if (json_data.join_status == 'Existing'){
-                error_object.text('You already are joined to this group.');
-            } else {
-                error_object.text(('You Joined ' + json_data.gamename + ' as ' + json_data.name));
+    if (code.length == 0){
+        error_object.addClass('error-text');
+        error_object.text('You need to enter a join code.');
+    } else {
+        joinGroup(code,name,function(json_data){
+            if (json_data.status == 'error'){
+                error_object.addClass('error-text');
+                error_object.text(json_data.statusdetail);
+            } else if (json_data.status == 'ok'){
+                error_object.removeClass('error-text');
+                if (json_data.join_status == 'Existing'){
+                    error_object.text('You already are joined to this group.');
+                } else {
+                    error_object.text(('You Joined ' + json_data.gamename + ' as ' + json_data.name));
+                }
             }
-        }
-    },error_object);
+        },error_object);
+    }
 });
 
 // new group
@@ -29,13 +35,14 @@ $("#new-group").submit( function(event) {
     event.preventDefault();
     group_name = $('#new-group-name').val();
     error_object = $('#new-error');
-    error_object.addClass("error-text");
+    error_object.removeClass('error-text');
     error_object.text("");
     if (group_name.length == 0) {
         error_object.text("Enter a name.");
     } else {
         new_group(group_name,function(json_data){
             if (json_data.status == 'error'){
+                error_object.addClass('error-text');
                 error_object.text(json_data.statusdetail);
             } else if (json_data.status == 'ok'){
                 // fill info into existing fields.
@@ -48,6 +55,7 @@ $("#new-group").submit( function(event) {
 
                 clearMaterialInputBox('#new-group-name');
             } else {
+                error_object.addClass('error-text');
                 error_object.text("Invalid reply from API.");
             }
         },error_object)
@@ -62,8 +70,10 @@ $('form#register-email').submit(function(event) {
     error_object = $('div#register-email-error');
     error_object.text("");
     if (!register_email.match('.+@.+')){
+        error_object.addClass('error-text');
         error_object.text("Please Enter an email address.");
     } else if (register_name.length == 0) {
+        error_object.addClass('error-text');
         error_object.text("Please Enter a Display Name for yourself.");
     } else {
         doRegister(register_email,register_name,function(json_data){
@@ -87,6 +97,7 @@ $('form#login-email').submit(function(event) {
     error_object = $('div#login-email-error');
     error_object.text("");
     if (!login_email.match('.+@.+')){
+        error_object.addClass('error-text');
         error_object.text("Please Enter an email address.");
     } else {
         doLogin(login_email,function(json_data){
@@ -111,8 +122,10 @@ $('form#logout-session').submit(function(event) {
     error_object = $('div#logout-error');
     error_object.text("");
     if (getStoredLoginStatus() != 'loggedIn') {
+        error_object.addClass('error-text');
         error_object.text("Not logged in.");
     } else if (!creds.session){
+        error_object.addClass('error-text');
         error_object.text("No logon session.");
     } else {
         doLogOut(creds.session,creds.secret,function(json_data){
@@ -138,8 +151,10 @@ $("form#verify-code").submit(function(event){
     error_object = $('div#verify-code-error');
     error_object.text("");
     if (verify_code.length == 0){
+        error_object.addClass('error-text');
         error_object.text("Please Enter a code.");
     } else if (session.length == 0) {
+        error_object.addClass('error-text');
         error_object.text("Session ID missing, try a new login instead.");
     } else {
         var localPass = generateId();
@@ -236,6 +251,8 @@ function nav_event_game_list(){
                 }
 
             });
+            error_object.removeClass('error-text');
+            error_object.text('');
         }
     },error_object);
     getJoinedGroupList(function(json_data) {
@@ -268,6 +285,8 @@ function nav_event_game_list(){
                     getJoinedGameOnExpand($(this).parent(),$('#game-list-error'));
                 });
             });
+            error_object.removeClass('error-text');
+            error_object.text('');
         }
     },error_object);
     
@@ -321,18 +340,19 @@ function getOwnedGameOnExpand(element,error_object){
                     var gameRoot = $(this).closest('.game-owned-entry');
                     code = gameRoot.find('#li-item-code').text();
                     error_object = gameRoot.find('#game-entry-error');
-                    error_object.addClass("error-text");
                     error_object.text("");
                     if (code.length != 8) {
                         error_object.text("Codes should be exactly 8 characters long.");
                     } else {
                         roll_santas(code,function(json_data){
                             if (json_data.status == 'error'){
+                                error_object.addClass("error-text");
                                 error_object.text(json_data.statusdetail);
                             } else if (json_data.status == 'ok'){
                                 error_object.removeClass('error-text');
                                 error_object.text("Success.");
                             } else {
+                                error_object.addClass("error-text");
                                 error_object.text("Invalid reply from API.");
                             }
                         },error_object)
@@ -404,6 +424,8 @@ function getJoinedGameOnExpand(element,error_object){
                             // set mdl events
                             componentHandler.upgradeElements(rowInDocument);
                         });
+                        error_object.removeClass('error-text');
+                        error_object.text("");
                     } else {
                         error_object.addClass('error-text');
                         error_object.text("No ideas given, please reload.");
