@@ -21,20 +21,20 @@ function add_user(code,name,callback,error_element){
     $.post(uri,post_data,callback, 'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
 
-function joinGroup(code,name,callback,error_element){
+function joinGroup(code,name,callback,error_element,progress_element = null){
     if (getStoredLoginStatus() == "loggedIn"){
         post = {'code':code,'name':name}
         $.extend(post,getSessionCredentials());
-        doEndpointPost(post,'join_game',callback,error_element);
+        doEndpointPost(post,'join_game',callback,error_element,progress_element);
     } else {
         error_element.text = "Not logged in.";
     }
 }
 
-function add_idea(code,idea,callback,error_element){
+function add_idea(code,idea,callback,error_element,progress_element = null){
     var idea_post_data = {'code': code,'idea': idea};
     $.extend(idea_post_data,getSessionCredentials());
-    doEndpointPost(idea_post_data,'idea',callback,error_element)
+    doEndpointPost(idea_post_data,'idea',callback,error_element,progress_element)
 }
 
 function get_auth(code,secret,callback,error_element){
@@ -43,21 +43,21 @@ function get_auth(code,secret,callback,error_element){
     $.post(uri,auth_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
 
-function roll_santas(code,callback,error_element){
+function roll_santas(code,callback,error_element,progress_element = null){
     if (getStoredLoginStatus() == "loggedIn"){
         post = {'code':code,'state':1}
         $.extend(post,getSessionCredentials());
-        doEndpointPost(post,'game',callback,error_element);
+        doEndpointPost(post,'game',callback,error_element,progress_element);
     } else {
         error_element.text = "Not logged in.";
     }
 }
 
-function new_group(name,callback,error_element){
+function new_group(name,callback,error_element,progress_element = null){
      if (getStoredLoginStatus() == "loggedIn"){
         post = {'name':name}
         $.extend(post,getSessionCredentials());
-        doEndpointPost(post,'new',callback,error_element);
+        doEndpointPost(post,'new',callback,error_element,progress_element);
     } else {
         error_element.text = "Not logged in.";
     }
@@ -69,11 +69,11 @@ function list_users(code,secret,callback,error_element){
     $.post(uri,list_users_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
 
-function get_game_summary(code,callback,error_element){
+function get_game_summary(code,callback,error_element,progress_element = null){
     if (getStoredLoginStatus() == "loggedIn"){
         post = {'code':code}
         $.extend(post,getSessionCredentials());
-        doEndpointPost(post,'game_sum',callback,error_element);
+        doEndpointPost(post,'game_sum',callback,error_element,progress_element);
     } else {
         error_element.text = "Not logged in.";
     }
@@ -86,19 +86,24 @@ function list_leftover_ideas(code,callback,error_element){
 }
 
 // get group selection results
-function get_group_results(code,callback,error_element){
+function get_group_results(code,callback,error_element,progress_element = null){
     var post = {'code':code};
     $.extend(post,getSessionCredentials());
-    doEndpointPost(post,'results',callback,error_element);
+    doEndpointPost(post,'results',callback,error_element,progress_element);
 }
 
 function getEndpoint(name){
     return (backendUri + '/' + name);
 }
 
-function doEndpointPost(data,path,callback,error_element){
+function doEndpointPost(data,path,callback,error_element,progress_element = null){
     var post_data = JSON.stringify(data);
-    $.post(getEndpoint(path),post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+    $.post(getEndpoint(path),post_data,callback,'json').fail(function(e){
+        error_element.text("Unable to contact server.")
+        if (progress_element != null) {
+            hide_progress(progress_element);
+        }
+    });
 }
 /********** Display change functions *********/
 
@@ -138,6 +143,17 @@ function insertItemToNode(targetSelector,insertObject){
 function clearMaterialInputBox(selector){
     $(selector).val('').parent().removeClass('is-focused').removeClass('is-dirty');
 }
+
+
+function show_progress(selector){
+    $(selector).removeClass('nav-hidden');
+}
+
+function hide_progress(selector){
+    $(selector).addClass('nav-hidden');
+}
+
+
 
 /************* login storage *************/
 
@@ -184,20 +200,20 @@ function clearSession(){
     storedValues.removeItem('sessionpw');
 }
 
-function doLogin(email,callback,error_element){
-    doEndpointPost({'email':email},'auth/new_session',callback,error_element);
+function doLogin(email,callback,error_element,progress_element = null){
+    doEndpointPost({'email':email},'auth/new_session',callback,error_element,progress_element);
 }
 
-function doRegister(email,name,callback,error_element){
-    doEndpointPost({'email':email,'name':name},'auth/register',callback,error_element);
+function doRegister(email,name,callback,error_element,progress_element = null){
+    doEndpointPost({'email':email,'name':name},'auth/register',callback,error_element,progress_element);
 }
 
-function doVerify(sessionid,verify,sessionpw,callback,error_element){
-    doEndpointPost({'session':sessionid,'code':verify,'secret':sessionpw},'auth/verify_session',callback,error_element);
+function doVerify(sessionid,verify,sessionpw,callback,error_element,progress_element = null){
+    doEndpointPost({'session':sessionid,'code':verify,'secret':sessionpw},'auth/verify_session',callback,error_element,progress_element);
 }
 
-function doLogOut(sessionId,sessionPw,callback,error_element){
-    doEndpointPost({'session':sessionId,'secret':sessionPw},'auth/end_session',callback,error_element);
+function doLogOut(sessionId,sessionPw,callback,error_element,progress_element = null){
+    doEndpointPost({'session':sessionId,'secret':sessionPw},'auth/end_session',callback,error_element,progress_element);
 }
 
 /*********************** Secret gen  ***************/
@@ -218,25 +234,25 @@ function generateId (len) {
 }
 
 /***********new group view *************/
-function getOwnedGroupList(callback,error_element) {
+function getOwnedGroupList(callback,error_element,progress_element = null) {
     if (getStoredLoginStatus() == "loggedIn"){
         var creds = getSessionCredentials();
         doEndpointPost({
             'session': creds.session,
             'secret' : creds.secret,
-        },'game/owned',callback,error_element);
+        },'game/owned',callback,error_element,progress_element);
     } else {
         error_element.text('Not logged on.')
     }
 }
 
-function getJoinedGroupList(callback,error_element) {
+function getJoinedGroupList(callback,error_element,progress_element = null) {
     if (getStoredLoginStatus() == "loggedIn"){
         var creds = getSessionCredentials();
         doEndpointPost({
             'session': creds.session,
             'secret' : creds.secret,
-        },'game/joined',callback,error_element);
+        },'game/joined',callback,error_element,progress_element);
     } else {
         error_element.text('Not logged on.')
     }

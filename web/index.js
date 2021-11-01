@@ -8,11 +8,13 @@ $('form#join-group').submit(function(event){
     error_object = $('div#join-error');
     error_object.removeClass('error-text');
     error_object.text("");
+    show_progress('#join-progress');
     var code = $('input#join-group-code')[0].value;
     var name = $('input#join-group-name')[0].value;
     if (code.length == 0){
         error_object.addClass('error-text');
         error_object.text('You need to enter a join code.');
+        hide_progress('#join-progress');
     } else {
         joinGroup(code,name,function(json_data){
             if (json_data.status == 'error'){
@@ -26,7 +28,8 @@ $('form#join-group').submit(function(event){
                     error_object.text(('You Joined ' + json_data.gamename + ' as ' + json_data.name));
                 }
             }
-        },error_object);
+            hide_progress('#join-progress');
+        },error_object,'#join-progress');
     }
 });
 
