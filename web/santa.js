@@ -154,7 +154,13 @@ function hide_progress(selector){
     $(selector).addClass('nav-hidden');
 }
 
+function disable_button(selector){
+    $(selector).attr('disabled','1');
+}
 
+function enable_button(selector){
+    $(selector).removeAttr('disabled');
+}
 
 /************* login storage *************/
 

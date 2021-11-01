@@ -414,12 +414,16 @@ function getJoinedGameOnExpand(element,error_object,progress_element=null){
                 error_object.text("");
                 progress_object = localRoot.find('#game-list-idearegister-progress');
                 show_progress(progress_object);
+                button_object = $(this).find('#enter-idea-button');
+                disable_button(button_object);
                 if (idea.length == 0) {
                     error_object.text("You must input an idea.");
                     hide_progress(progress_object);
+                    enable_button(button_object);
                 } else if (idea.length > 260) {
                     error_object.text("Ideas are limited to 260 Characters, be more succinct.")
                     hide_progress(progress_object);
+                    enable_button(button_object);
                 } else {
                     add_idea(code,idea,function(json_data){
                         if (json_data.status == 'error'){
@@ -431,6 +435,7 @@ function getJoinedGameOnExpand(element,error_object,progress_element=null){
                             error_object.text("Successful Submission.");
                         }
                         hide_progress(progress_object);
+                        enable_button(button_object);
                     },error_object,progress_object);
                 }
             });
