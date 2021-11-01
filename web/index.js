@@ -40,8 +40,10 @@ $("#new-group").submit( function(event) {
     error_object = $('#new-error');
     error_object.removeClass('error-text');
     error_object.text("");
+    show_progress('#new-progress');
     if (group_name.length == 0) {
         error_object.text("Enter a name.");
+        hide_progress('#new-progress');
     } else {
         new_group(group_name,function(json_data){
             if (json_data.status == 'error'){
@@ -61,7 +63,8 @@ $("#new-group").submit( function(event) {
                 error_object.addClass('error-text');
                 error_object.text("Invalid reply from API.");
             }
-        },error_object)
+            hide_progress('#new-progress');
+        },error_object,'#new-progress');
     }
 });
 
@@ -72,12 +75,15 @@ $('form#register-email').submit(function(event) {
     var register_name = $('input#register-name')[0].value;
     error_object = $('div#register-email-error');
     error_object.text("");
+    show_progress('#register-email-progress');
     if (!register_email.match('.+@.+')){
         error_object.addClass('error-text');
         error_object.text("Please Enter an email address.");
+        hide_progress('#register-email-progress');
     } else if (register_name.length == 0) {
         error_object.addClass('error-text');
         error_object.text("Please Enter a Display Name for yourself.");
+        hide_progress('#register-email-progress');
     } else {
         doRegister(register_email,register_name,function(json_data){
             if (json_data.status == 'error'){
@@ -89,7 +95,8 @@ $('form#register-email').submit(function(event) {
                 set_buttons_from_status();
                 show_card_matching('verify');
             }
-        },error_object);
+            hide_progress('#register-email-progress');
+        },error_object,'#register-email-progress');
     }
 });
 
@@ -99,9 +106,11 @@ $('form#login-email').submit(function(event) {
     var login_email = $('input#login-email')[0].value;
     error_object = $('div#login-email-error');
     error_object.text("");
+    show_progress('#login-email-progress');
     if (!login_email.match('.+@.+')){
         error_object.addClass('error-text');
         error_object.text("Please Enter an email address.");
+        hide_progress('#login-email-progress');
     } else {
         doLogin(login_email,function(json_data){
             if (json_data.status == 'error'){
@@ -114,7 +123,8 @@ $('form#login-email').submit(function(event) {
                 set_buttons_from_status();
                 show_card_matching('verify');
             }
-        },error_object);
+            hide_progress('#login-email-progress');
+        },error_object,'#login-email-progress');
     }
 });
 
@@ -124,12 +134,15 @@ $('form#logout-session').submit(function(event) {
     var creds = getSessionCredentials();
     error_object = $('div#logout-error');
     error_object.text("");
+    show_progress('#logout-progress');
     if (getStoredLoginStatus() != 'loggedIn') {
         error_object.addClass('error-text');
         error_object.text("Not logged in.");
+        hide_progress('#logout-progress');
     } else if (!creds.session){
         error_object.addClass('error-text');
         error_object.text("No logon session.");
+        hide_progress('#logout-progress');
     } else {
         doLogOut(creds.session,creds.secret,function(json_data){
             if (json_data.status == 'error'){
@@ -141,7 +154,8 @@ $('form#logout-session').submit(function(event) {
             }
             clearSession();
             set_buttons_from_status();
-        },error_object);
+            hide_progress('#logout-progress');
+        },error_object,'#logout-progress');
     }
 });
 
@@ -153,12 +167,15 @@ $("form#verify-code").submit(function(event){
     var session = getSessionCredentials().session;
     error_object = $('div#verify-code-error');
     error_object.text("");
+    show_progress('#verify-code-progress');
     if (verify_code.length == 0){
         error_object.addClass('error-text');
         error_object.text("Please Enter a code.");
+        hide_progress('#verify-code-progress');
     } else if (session.length == 0) {
         error_object.addClass('error-text');
         error_object.text("Session ID missing, try a new login instead.");
+        hide_progress('#verify-code-progress');
     } else {
         var localPass = generateId();
         doVerify(session,verify_code,localPass,function(json_data){
@@ -172,7 +189,8 @@ $("form#verify-code").submit(function(event){
                 set_buttons_from_status();
                 show_card_matching('home');
             }
-        },error_object);
+            hide_progress('#verify-code-progress');
+        },error_object,'#verify-code-progress');
     }
 });
 
