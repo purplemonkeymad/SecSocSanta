@@ -43,10 +43,14 @@ function get_auth(code,secret,callback,error_element){
     $.post(uri,auth_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
 }
 
-function roll_santas(code,secret,callback,error_element){
-    var uri = backendUri + '/game';
-    var roll_post_data = JSON.stringify({'code':code,'secret':secret,'state':1});
-    $.post(uri,roll_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+function roll_santas(code,callback,error_element){
+    if (getStoredLoginStatus() == "loggedIn"){
+        post = {'code':code,'state':1}
+        $.extend(post,getSessionCredentials());
+        doEndpointPost(post,'game',callback,error_element);
+    } else {
+        error_element.text = "Not logged in.";
+    }
 }
 
 function new_group(name,callback,error_element){

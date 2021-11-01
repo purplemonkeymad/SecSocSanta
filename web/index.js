@@ -313,6 +313,31 @@ function getOwnedGameOnExpand(element,error_object){
                 localRoot.find('#group-sum-members').text(json_data.santas);
                 localRoot.find('#group-sum-ideas').text(json_data.ideas);
                 localRoot.find('#group-sum-card').addClass('is-filled')
+                // create roll button event:
+                var rollButton = localRoot.find('#roll-button');
+                rollButton.off('click').on('click',function (event) {
+                    event.preventDefault();
+                    // find root element of this group
+                    var gameRoot = $(this).closest('.game-owned-entry');
+                    code = gameRoot.find('#li-item-code').text();
+                    error_object = gameRoot.find('#game-entry-error');
+                    error_object.addClass("error-text");
+                    error_object.text("");
+                    if (code.length != 8) {
+                        error_object.text("Codes should be exactly 8 characters long.");
+                    } else {
+                        roll_santas(code,function(json_data){
+                            if (json_data.status == 'error'){
+                                error_object.text(json_data.statusdetail);
+                            } else if (json_data.status == 'ok'){
+                                error_object.removeClass('error-text');
+                                error_object.text("Success.");
+                            } else {
+                                error_object.text("Invalid reply from API.");
+                            }
+                        },error_object)
+                    }
+                })
             }
         },error_object);
     }
