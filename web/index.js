@@ -273,6 +273,9 @@ function nav_event_game_list(){
                 if (g.state != 0){
                     $(rowInDocument).find('#roll-button').attr('disabled','');
                 }
+                if (g.state >= 2){
+                    $(rowInDocument).find('#close-group-button').attr('disabled','');
+                }
 
             });
             error_object.removeClass('error-text');
