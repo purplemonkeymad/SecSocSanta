@@ -205,6 +205,7 @@
                                         <div class="mdl-card mdl-shadow--2d group-card"><div class="mdl-card__supporting-text">Ideas: <span id="group-sum-ideas"></span></div></div>
                                         <div class="mdl-card mdl-shadow--2d group-card"><button id= "roll-button" class="mdl-button mdl-js-button mdl-button--raised">Roll</button></div>
                                         <div class="mdl-card mdl-shadow--2d group-card"><button id="view-members" class="mdl-button mdl-js-button mdl-button--raised">View Members</button></div>
+                                        <div class="mdl-card mdl-shadow--2d group-card"><button id="close-group-button" class="mdl-button mdl-js-button mdl-button--raised" style="color: red;">Close Group</button></div>
                                     </div>
                                 </div>
                                 <div id="game-entry-error"></div>
@@ -355,8 +356,8 @@
                 </p>
             </div>
             <div class="mdl-dialog__actions">
-                <button type="button" class="mdl-button">Don't Close Group</button>
-                <button type="button" class="mdl-button" style="color: red;">I'm sure I want to close.</button>
+                <button id="close-cancel-button" type="button" class="mdl-button">Don't Close Group</button>
+                <button id="close-really-am-sure-button" type="button" class="mdl-button" style="color: red;">I'm sure I want to close.</button>
             </div>
         </dialog>
     </body>

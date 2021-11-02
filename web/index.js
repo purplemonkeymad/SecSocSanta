@@ -434,6 +434,32 @@ function getOwnedGameOnExpand(element,error_object,progress_element=null){
                     }
                 });
 
+                // closegroup event
+                var closeButton = localRoot.find('#close-group-button');
+                closeButton.off('click').on('click',function (event) {
+                    var gameRoot = $(this).closest('.game-owned-entry');
+                    code = gameRoot.find('#li-item-code').text();
+                    error_object = gameRoot.find('#game-entry-error');
+                    var closeDialog = document.querySelector('#CloseGroup');
+                    if (! closeDialog.showModal) {
+                        dialogPolyfill.registerDialog(closeDialog);
+                    }
+
+                    $(closeDialog).find('#close-cancel-button').off('click').on('click',function() {
+                        closeDialog.close();
+                    });
+
+                    $(closeDialog).find('#close-really-am-sure-button').off('click').on('click',function() {
+                        // ok close it.
+                        close_group(code,x => {
+                            error_object.text("Closed!");
+                        },error_object)
+                        closeDialog.close();
+                    });
+
+                    closeDialog.showModal();
+                });
+
                 hide_progress(progress_element);
             }
         },error_object);

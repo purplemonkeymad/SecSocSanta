@@ -53,6 +53,16 @@ function roll_santas(code,callback,error_element,progress_element = null){
     }
 }
 
+function close_group(code,callback,error_element,progress_element = null){
+    if (getStoredLoginStatus() == "loggedIn"){
+        post = {'code':code,'state':2}
+        $.extend(post,getSessionCredentials());
+        doEndpointPost(post,'game',callback,error_element,progress_element);
+    } else {
+        error_element.text = "Not logged in.";
+    }
+}
+
 function new_group(name,callback,error_element,progress_element = null){
      if (getStoredLoginStatus() == "loggedIn"){
         post = {'name':name}
