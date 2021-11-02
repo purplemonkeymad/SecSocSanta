@@ -332,6 +332,32 @@
             <div class="mdl-dialog__actions">
                 <button type="button" class="mdl-button">Close</button>
             </div>
-          </dialog>
+        </dialog>
+        <dialog id="IdeaList" class="mdl-dialog">
+            <h3 class="mdl-dialog__title">List of ideas.</h3>
+            <div class="mdl-dialog__content">
+                <p>
+                    Your current list of submitted ideas:
+                </p>
+                <ul id="ideaList-list" class="mdl-list mdl-accordion__button">
+                    <li class="mdl-list__item"></li>
+                </ul>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button">Close</button>
+            </div>
+        </dialog>
+        <dialog id="CloseGroup" class="mdl-dialog">
+            <h3 class="mdl-dialog__title">Close this Group?. <span id="delete-group-name"></span></h3>
+            <div class="mdl-dialog__content">
+                <p>
+                    Are you sure you want to close this group? You will not be able to re-open the group, and results can no longer be retrieved from it.
+                </p>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button">Don't Close Group</button>
+                <button type="button" class="mdl-button" style="color: red;">I'm sure I want to close.</button>
+            </div>
+        </dialog>
     </body>
 </html>
