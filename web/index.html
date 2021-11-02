@@ -2,9 +2,12 @@
     <head>
         <title>SecSoc Santa</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.2/dialog-polyfill.min.css">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <link rel="stylesheet" href="base.css"/>
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.2/dialog-polyfill.min.js"></script>
         <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script defer src="santa.js"></script>
         <script defer src="index.js"></script>
@@ -33,88 +36,329 @@
             
     </head>
     <body>
-        <div id="main">
-            <div id="header" class="default-show topcards mdl-card mdl-shadow--2dp">
+        <div class="mdl-layout mdl-js-layout">
+            <header class="mdl-layout__header mdl-layout__header--fixed-header has-drawer">
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout-title">SecSoc Secret Santa</span>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- Navigation -->
+                    <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="?home">Home</a>
+                    <a class="mdl-navigation__link needs-logout" href="?login">Login</a>
+                    <a class="mdl-navigation__link needs-login" href="?logout">Logout</a>
+                    <a class="mdl-navigation__link needs-verify" href="?verify">Verify Login</a>
+                    <a class="mdl-navigation__link needs-logout" href="?register">Register</a>
+                    <a class="mdl-navigation__link needs-login" href="?join">Join</a>
+                    </nav>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">SecSoc Secret Santa</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="?home">Home</a>
+                    <a class="mdl-navigation__link needs-logout" href="?login">Login</a>
+                    <a class="mdl-navigation__link needs-login" href="?logout">Logout</a>
+                    <a class="mdl-navigation__link needs-verify" href="?verify">Verify Login</a>
+                    <a class="mdl-navigation__link needs-logout" href="?register">Register</a>
+                    <a class="mdl-navigation__link needs-login" href="?game-list">My Groups</a>
+                    <a class="mdl-navigation__link needs-login" href="?join">Join</a>
+                    <a class="mdl-navigation__link needs-login" href="?new">Create</a>
+                </nav>
+            </div>
+            <main id="main" class="mdl-layout__content">
+            <!-- Home -->
+            <div id="home" class="default-show topcards mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">Sec Soc Santa Interface</h2>
+                    <h1 class="mdl-card__title-text">Welcome to the Sec Soc Secret Santa</h1>
                 </div>
+                <p class="mdl-card__supporting-text needs-logout">
+                    This site allows you to organize your secret santa selections and ideas. Register your account if you have not done so, or login if you have.
+                </p>
+                <p class="mdl-card__supporting-text needs-verify">
+                    Almost there, pop over to the verify page to prove your account ownership.
+                </p>
+                <p class="mdl-card__supporting-text needs-login">
+                    Welcome back. Check out your current groups, or create a new group. If you have been given a share code, you can join an existing group.
+                </p>
+                <div class="mdl-card__actions mdl-card--border">
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-logout" href="?login" >Login</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-login" href="?logout">Logout</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-verify" href="?verify">Verify Login</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-logout" href="?register">Register</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-login" href="?game-list">My Groups</a>
+                    <a class="mdl-navigation__link mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect needs-login" href="?join">Join</a>
+                </div>
+            </div>
+            <!-- Registration card -->
+            <div id="register" class="topcards mdl-card mdl-shadow--2dp">
+                <h1 class="mdl-card__title-text">Register for an account on SecSoc Secret Santa.</h1>
                 <div class="mdl-card__supporting-text">
-                    <p>Welcome to the Sec Soc Secret Santa or SSSS.</p>
-                    <p>Put the group code you were given in the following box to access actions:</p>
+                    <p>
+                        Registration will allow you to join groups, and even create your own groups.
+                        Your identity will be tied to your email so make sure to use an account only you have access to.
+                    </p>
                 </div>
-                <form id="enter-gamecode" action="">
+                <form id="register-email" action="">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="gamecode">
-                        <label class="mdl-textfield__label" for="gamecode">Group Code...</label>
+                        <input class="mdl-textfield__input" type="text" id="register-email">
+                        <label class="mdl-textfield__label" for="register-email">Email Address (eg. yourname@example.com)</label>
                     </div>
-                    <button id="enter-gamecode-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Check</button>
-                </form>
-                <div id="gamecode-error" class="error-text mdl-card__supporting-text"></div>
-            </div>
-            <div id="game-info-open" class="topcards mdl-card mdl-shadow--2dp" >
-                <h1 class="mdl-card__title-text"></h1>
-                <p class="mdl-card__supporting-text">This group is currently open. You can register if you have not yet, or add an idea for presents.</p>
-                <button id="button-game-register" class="mdl-button mdl-js-button mdl-button--raised">Register</button>
-                <button id="button-game-ideas" class="mdl-button mdl-js-button mdl-button--raised">Ideas</button>
-            </div>
-            <div id="game-info-ran" class="topcards mdl-card mdl-shadow--2dp" >
-                <h1 class="mdl-card__title-text"></h1>
-                <p>The group results have been selected. Put your name in to get your results.</p>
-                <form id="game-actions-ran">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="results-username">
-                        <label class="mdl-textfield__label" for="results-username">Enter Name...</label>
+                        <input class="mdl-textfield__input" type="text" id="register-name">
+                        <label class="mdl-textfield__label" for="register-name">Your Name</label>
                     </div>
-                    <button id="game-get-results" class="mdl-button mdl-js-button mdl-button--raised">Get Results</button>
+                    <button id="register-email-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Register</button>
                 </form>
-                <div id="gameran-error" class="error-text mdl-card__supporting-text"></div>
+                <div id="register-email-error" class="mdl-card__supporting-text"></div>
+                <div id="register-email-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Your email will only be stored for login and verification purposes.
+                    </p>
+                </div>
             </div>
-            <div id="game-info-ran-results" class="topcards mdl-card mdl-shadow--2dp" >
-                <h2 class="mdl-card__title-text">You are buying for:</h2>
-                <h1 id="giftee-anounce" class="anounce-text"></h2>
-                <p class="mdl-card__supporting-text">You have been selected the following gift suggestions:</p>
-                <ul class="demo-list-item mdl-list" id="game-results-list">
-                    <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content">
-                        Example
-                    </span>
+            <!-- Login Card -->
+            <div id="login" class="topcards mdl-card mdl-shadow--2dp">
+                <h1 class="mdl-card__title-text">Login to your account.</h1>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Enter your registered email. You will be emailed a code used to verify your account ownership.
+                    </p>
+                </div>
+                <form id="login-email" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="login-email">
+                        <label class="mdl-textfield__label" for="login-email">Email Address (eg. yourname@example.com)</label>
+                    </div>
+                    <button id="login-email-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Login</button>
+                </form>
+                <div id="login-email-error" class="mdl-card__supporting-text"></div>
+                <div id="login-email-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Your email will only be stored for login and verification purposes.
+                    </p>
+                </div>
+            </div>
+            <!-- Logout Card -->
+            <div id="logout" class="topcards mdl-card mdl-shadow--2dp">
+                <h1 class="mdl-card__title-text">Login to your account.</h1>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Choose your logout option below:
+                    </p>
+                </div>
+                <form id="logout-session" action="">
+                    <button id="logout-session-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Logout</button>
+                </form>
+                <form id="logout-allsessions" action="">
+                    <button id="logout-allsessions-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Logout Everywhere</button>
+                </form>
+                <div id="logout-error" class="mdl-card__supporting-text"></div>
+                <div id="logout-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+            </div>
+            <!-- Verify Card -->
+            <div id="verify" class="topcards mdl-card mdl-shadow--2dp">
+                <h1 class="mdl-card__title-text">Login to your account.</h1>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Please Enter the code that was emailed to <span id="verify-emailaddress-label">your email</span>.
+                    </p>
+                </div>
+                <form id="verify-code" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="verify-email">
+                        <label class="mdl-textfield__label" for="verify-email">Verify code (eg 123456)</label>
+                    </div>
+                    <button id="verify-code-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Verify</button>
+                </form>
+                <div id="verify-code-error" class="mdl-card__supporting-text"></div>
+                <div id="verify-code-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Your email will only be stored for login and verification purposes.
+                    </p>
+                </div>
+            </div>
+            <!-- Game list card -->
+            <div id="game-list" class="topcards mdl-card mdl-shadow--2dp" >
+                <h1 class="mdl-card__title-text">Your list of Groups.</h1>
+                <div id="game-list-error" class="mdl-card__supporting-text"></div>
+                <div id="game-list-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+                <template id="game-owned-item">
+                    <li class="mdl-list__item game-owned-entry">
+                        <!-- Owner group info -->
+                        <div class="mdl-accordion group-list-row mdl-shadow--2dp">
+                            <ul class="mdl-list mdl-accordion__button ">
+                                <li class="mdl-list__item">
+                                    <i class="material-icons mdl-accordion__icon mdl-animation--default">expand_more</i>
+                                    <span class="mdl-list__item-primary-content" id="li-item-name"></span>
+                                    <span class="mdl-list__item-primary-content" id="li-item-code"></span>
+                                    <span class="mdl-list__item-primary-content" id="li-item-status"></span>
+                                </li>
+                            </ul>
+                            <div class="mdl-accordion__content-wrapper">
+                                <div class="mdl-accordion__content mdl-animation--default">
+                                    <div id="group-sum-card" class="group-card-list">
+                                        <div class="mdl-card mdl-shadow--2d group-card"><div class="mdl-card__supporting-text">Members: <span id="group-sum-members"></span></div></div>
+                                        <div class="mdl-card mdl-shadow--2d group-card"><div class="mdl-card__supporting-text">Ideas: <span id="group-sum-ideas"></span></div></div>
+                                        <div class="mdl-card mdl-shadow--2d group-card"><button id= "roll-button" class="mdl-button mdl-js-button mdl-button--raised">Roll</button></div>
+                                        <div class="mdl-card mdl-shadow--2d group-card"><button id="view-members" class="mdl-button mdl-js-button mdl-button--raised">View Members</button></div>
+                                        <div class="mdl-card mdl-shadow--2d group-card"><button id="close-group-button" class="mdl-button mdl-js-button mdl-button--raised" style="color: red;">Close Group</button></div>
+                                    </div>
+                                    <div id="game-entry-error"></div>
+                                    <div id="game-entry-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
+                </template>
+                <div id="group-list-container-owned" class="group-list-container">
+                    <h2 class="mdl-card__title-text">Your Owned Groups.</h2>
+                    <ul class="demo-list-item mdl-list" id="game-owned-list"></ul>
+                </div>
+                <template id="game-joined-item">
+                    <li class="mdl-list__item">
+                        <!-- Joined Group info -->
+                        <div class="mdl-accordion group-list-row mdl-shadow--2dp">
+                            <ul class="mdl-list mdl-accordion__button">
+                                <li class="mdl-list__item">
+                                    <i class="material-icons mdl-accordion__icon mdl-animation--default">expand_more</i>
+                                    <span class="mdl-list__item-primary-content" id="li-item-name"></span>
+                                    <span class="mdl-list__item-primary-content" id="li-item-code"></span>
+                                    <span class="mdl-list__item-primary-content" id="li-item-status"></span>
+                                    <span class="mdl-list__item-primary-content" id="li-item-username"></span>
+                                </li>
+                            </ul>
+                            <div class="mdl-accordion__content-wrapper">
+                                <div class="mdl-accordion__content mdl-animation--default">
+                                    <div id="group-list-open"><!-- idea submissions -->
+                                        <p class="mdl-card__title-text">Group is currently open for suggestions.</p>
+                                        <form id="game-list-new-idea" action="">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="text" id="game-list-register-idea">
+                                                <label class="mdl-textfield__label" for="game-list-register-idea">Your gift suggestion here.</label>
+                                            </div>
+                                            <button id="enter-idea-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Add it!</button>
+                                        </form>
+                                        <div id="game-list-idearegister-error" class="mdl-card__supporting-text"></div>
+                                        <div id="game-list-idearegister-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+                                    </div>
+                                    <div id="group-list-rolled"><!-- person and idea results -->
+                                        <div id="game-list-results-error" class="mdl-card__supporting-text"></div>
+                                        <div id="game-list-results-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+                                        <p class="mdl-card__title-text">Group has been rolled and the results are in. You will be gifting to:</p>
+                                        <h2 id="giftee-anounce" class="anounce-text"></h2>
+                                        <p class="mdl-card__supporting-text">You have been selected the following gift suggestions:</p>
+                                        <ul class="demo-list-item mdl-list" id="game-results-list">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </template>
+                <div id="group-list-container-joined" class="group-list-container">
+                    <h2 class="mdl-card__title-text">Your Joined Groups.</h2>
+                    <ul class="demo-list-item mdl-list" id="game-joined-list"></ul>
+                </div>
+                <template id="game-results-idea-listitem">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content idea-item">
+                            Example
+                        </span>
+                    </li>
+                </template>
+            </div>
+            <!-- join card -->
+            <div id="join" class="topcards mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__supporting-text">
+                    <p>Put the group code you were given in the following box to join the group. You can also set a custom join name if you do not want to use your signup name.</p>
+                </div>
+                <form id="join-group" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="join-group-code">
+                        <label class="mdl-textfield__label" for="join-group-code">Group Code.</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="join-group-name">
+                        <label class="mdl-textfield__label" for="join-group-name">Name (optional)</label>
+                    </div>
+                    <button id="join-group-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Join</button>
+                </form>
+                <div id="join-error" class="mdl-card__supporting-text"></div>
+                <div id="join-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+            </div>
+            <!-- New group card -->
+            <div id="new" class="topcards mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__supporting-text">
+                    <p>You can create a new group here for a secret santa. Put in a display name for your group and you will be given a unique code for the group. Give it to others so they can join your group.</p>
+                </div>
+                <form id="new-group" action="">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="new-group-name">
+                        <label class="mdl-textfield__label" for="new-group-name">Group Name</label>
+                    </div>
+                    <button id="join-group-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Create</button>
+                </form>
+                <template id="new-group-results-template">
+                    <div class="new-group-results-item">
+                        <p>Your group has been created. Share the below code with others do they can join the group.</p>
+                        <p class="new-group-result--container">
+                            Name: <span id="new-group-name-result" class="group-code"></span>
+                        </p>
+                        <p class="new-group-result--container">
+                            Code: <span id="new-group-code-result" class="group-code"></span>
+                        </p>
+                    </div>
+                </template>
+                <div id="new-group-results"  class="mdl-card__supporting-text"></div>
+                <div id="new-error" class="mdl-card__supporting-text"></div>
+                <div id="new-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
+            </div>
+            </main>
+        </div>
+        <dialog id="UserList" class="mdl-dialog">
+            <h3 class="mdl-dialog__title">List of users.</h3>
+            <div class="mdl-dialog__content">
+                <p>
+                    These names have registered with the group:
+                </p>
+                <ul id="userList-list" class="mdl-list mdl-accordion__button">
+                    <li class="mdl-list__item"></li>
                 </ul>
             </div>
-            <div id="game-info-closed" class="topcards mdl-card mdl-shadow--2dp" >
-                <h1 class="mdl-card__title-text"></h1>
-                <div class="mdl-card__supporting-text">
-                    <p>Sorry this group has been closed and can no longer be used.</p>
-                </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button">Close</button>
             </div>
-            <div id="game-info-open-register" class="topcards mdl-card mdl-shadow--2dp" >
-                <h3 class="mdl-card__title-text">Sign up to the group.</h3>
-                <div class="mdl-card__supporting-text">
-                    <p>Put your name in here to join the pool of Santas. Remember what you put as you will need it to get your results.</p>
-                </div>
-                <form id="enter-name-register" action="">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="register-username">
-                        <label class="mdl-textfield__label" for="register-username">Your name here.</label>
-                    </div>
-                    <button id="enter-name-register-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Register</button>
-                </form>
-                <div id="gameregister-error" class="error-text mdl-card__supporting-text"></div>
+        </dialog>
+        <dialog id="IdeaList" class="mdl-dialog">
+            <h3 class="mdl-dialog__title">List of ideas.</h3>
+            <div class="mdl-dialog__content">
+                <p>
+                    Your current list of submitted ideas:
+                </p>
+                <ul id="ideaList-list" class="mdl-list mdl-accordion__button">
+                    <li class="mdl-list__item"></li>
+                </ul>
             </div>
-            <div id="game-info-open-idea" class="topcards mdl-card mdl-shadow--2dp" >
-                <h3 class="mdl-card__title-text">Submit an idea.</h3>
-                <div class="mdl-card__supporting-text">
-                    <p>Put a suggestion into the pool of ideas that people can get. The best ideas are simple and open ended, so that the Santa has some room to work with.</p>
-                </div>
-                <form id="enter-idea" action="">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="register-idea">
-                        <label class="mdl-textfield__label" for="register-idea">Your idea here.</label>
-                    </div>
-                    <button id="enter-idea-button" class="mdl-button mdl-js-button mdl-button--raised" type="submit">Add it!</button>
-                </form>
-                <div id="idearegister-error" class="error-text mdl-card__supporting-text"></div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button">Close</button>
             </div>
-        </div>
+        </dialog>
+        <dialog id="CloseGroup" class="mdl-dialog">
+            <h3 class="mdl-dialog__title">Close this Group?. <span id="delete-group-name"></span></h3>
+            <div class="mdl-dialog__content">
+                <p>
+                    Are you sure you want to close this group? You will not be able to re-open the group, and results can no longer be retrieved from it.
+                </p>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button id="close-cancel-button" type="button" class="mdl-button">Don't Close Group</button>
+                <button id="close-really-am-sure-button" type="button" class="mdl-button" style="color: red;">I'm sure I want to close.</button>
+            </div>
+        </dialog>
     </body>
 </html>

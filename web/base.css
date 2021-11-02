@@ -9,14 +9,39 @@ body {
     margin-left: auto;
     display: none;
 }
-.topcards > .mdl-card__title {
-    background-color: rgb(193, 255, 219);
-}
 .default-show {
     display: block;
 }
 .error-text {
     color: red;
+    padding: 1px;
+    margin: 10px;
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0.05);
+    }
+.mdl-layout__content{
+    width: 100%;
+}
+.nav-hidden {
+    display: none !important;
+}
+.group-code {
+    padding-left: 10px;
+    font-family: monospace;
+}
+.new-group-result--container{
+    display: flex;
+    padding-left: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}
+
+#game-owned-list .mdl-list__item, #game-joined-list .mdl-list__item {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.group-list-container {
+    margin-left: 1em;
 }
 
 /* desktop display */
@@ -25,3 +50,61 @@ body {
         width: 90%;
     }
 }
+
+.group-list-row {
+    flex: 0 0 100%;
+}
+.group-card{
+    min-height: 50px;
+    width: auto;
+    min-width: 100px;
+    margin: 2px;
+}
+.group-card-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* accordion css https://codepen.io/mjmaix/pen/JEYzyq */
+
+.mdl-accordion.mdl-accordion--opened {
+    /*border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;*/
+    margin-top: -1px;
+  }
+  
+  .mdl-accordion.mdl-accordion--opened + .mdl-accordion.mdl-accordion--opened {
+    border-top: none;
+    margin-top: 0;
+  }
+  
+  .mdl-accordion .mdl-accordion__content-wrapper {
+    overflow: hidden;
+  }
+  
+  .mdl-accordion .mdl-accordion__content {
+    transition-property: margin-top;
+    transition-duration: 0.2s;
+  }
+  
+  .mdl-accordion .mdl-accordion__icon {
+    transition-property: transform;
+    transition-duration: 0.2s;
+    color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    right: 25px;
+    margin-top: -3px;
+  }
+  
+  .mdl-accordion.mdl-accordion--opened .mdl-accordion__icon {
+    transform: rotate(-180deg);
+  }
+  
+  .mdl-accordion.mdl-accordion--opened .mdl-accordion__button {
+    color: teal;
+  }
+  
+  .mdl-accordion.mdl-accordion--opened .mdl-accordion__content {
+    margin-top: 0 !important;
+  }
