@@ -63,10 +63,14 @@ function new_group(name,callback,error_element,progress_element = null){
     }
 }
 
-function list_users(code,secret,callback,error_element){
-    var uri = backendUri + '/list_user';
-    var list_users_post_data = JSON.stringify({'code':code,'secret':secret});
-    $.post(uri,list_users_post_data,callback,'json').fail(function(e){ error_element.text("Unable to contact server.")});
+function list_users(code,callback,error_element,progress_element = null){
+    if (getStoredLoginStatus() == "loggedIn"){
+        post = {'code':code};
+        $.extend(post,getSessionCredentials());
+        doEndpointPost(post,'game/listuser',callback,error_element,progress_element);
+    } else {
+        error_element.text = "Not logged in.";
+    }
 }
 
 function get_game_summary(code,callback,error_element,progress_element = null){

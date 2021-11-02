@@ -3,9 +3,11 @@
         <title>SecSoc Santa</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.2/dialog-polyfill.min.css">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <link rel="stylesheet" href="base.css"/>
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.2/dialog-polyfill.min.js"></script>
         <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script defer src="santa.js"></script>
         <script defer src="index.js"></script>
@@ -186,6 +188,7 @@
                 <div id="game-list-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate nav-hidden"></div>
                 <template id="game-owned-item">
                     <li class="mdl-list__item game-owned-entry">
+                        <!-- Owner group info -->
                         <div class="mdl-accordion group-list-row mdl-shadow--2dp">
                             <ul class="mdl-list mdl-accordion__button ">
                                 <li class="mdl-list__item">
@@ -201,7 +204,7 @@
                                         <div class="mdl-card mdl-shadow--2d group-card"><div class="mdl-card__supporting-text">Members: <span id="group-sum-members"></span></div></div>
                                         <div class="mdl-card mdl-shadow--2d group-card"><div class="mdl-card__supporting-text">Ideas: <span id="group-sum-ideas"></span></div></div>
                                         <div class="mdl-card mdl-shadow--2d group-card"><button id= "roll-button" class="mdl-button mdl-js-button mdl-button--raised">Roll</button></div>
-                                        <div class="mdl-card mdl-shadow--2d group-card"><div class="mdl-card__supporting-text">Member list:</div></div>
+                                        <div class="mdl-card mdl-shadow--2d group-card"><button id="view-members" class="mdl-button mdl-js-button mdl-button--raised">View Members</button></div>
                                     </div>
                                 </div>
                                 <div id="game-entry-error"></div>
@@ -216,6 +219,7 @@
                 </div>
                 <template id="game-joined-item">
                     <li class="mdl-list__item">
+                        <!-- Joined Group info -->
                         <div class="mdl-accordion group-list-row mdl-shadow--2dp">
                             <ul class="mdl-list mdl-accordion__button">
                                 <li class="mdl-list__item">
@@ -315,5 +319,19 @@
             </div>
             </main>
         </div>
+        <dialog id="UserList" class="mdl-dialog">
+            <h3 class="mdl-dialog__title">List of users.</h3>
+            <div class="mdl-dialog__content">
+                <p>
+                    These names have registered with the group:
+                </p>
+                <ul id="userList-list" class="mdl-list mdl-accordion__button">
+                    <li class="mdl-list__item"></li>
+                </ul>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button">Close</button>
+            </div>
+          </dialog>
     </body>
 </html>

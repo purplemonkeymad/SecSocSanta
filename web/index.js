@@ -388,6 +388,52 @@ function getOwnedGameOnExpand(element,error_object,progress_element=null){
                         },error_object,gameRoot.find('#game-entry-progress'));
                     }
                 })
+
+                // create view members event
+                var viewMemButton = localRoot.find('#view-members');
+                viewMemButton.off('click').on('click',function (event) {
+                    var gameRoot = $(this).closest('.game-owned-entry');
+                    code = gameRoot.find('#li-item-code').text();
+                    error_object = gameRoot.find('#game-entry-error');
+                    error_object.text("");
+                    show_progress(gameRoot.find('#game-entry-progress'));
+                    if (code.length != 8) {
+                        error_object.text("Codes should be exactly 8 characters long.");
+                        hide_progress(gameRoot.find('#game-entry-progress'));
+                    } else {
+                        list_users(code,function(json_data){
+                            if (json_data.status == 'error'){
+                                error_object.addClass("error-text");
+                                error_object.text(json_data.statusdetail);
+                                hide_progress(gameRoot.find('#game-entry-progress'));
+                            } else if (json_data.status == 'ok'){
+                                var listDialog = document.querySelector('#UserList');
+                                if (! listDialog.showModal) {
+                                    dialogPolyfill.registerDialog(listDialog);
+                                }
+                                // clear a create list
+                                var ulElement = $(listDialog).find('#userList-list');
+                                ulElement.find('li').remove();
+                                var newItems = json_data.users.map(u => 
+                                    $('<li>')
+                                        .addClass('mdl-list__item')
+                                        .append(
+                                            $('<span>').addClass('mdl-list__item-primary-content').text(u)
+                                        ) 
+                                );
+                                ulElement.append(newItems);
+
+                                $(listDialog).off('click').on('click',function() {
+                                    listDialog.close();
+                                });
+
+                                listDialog.showModal();
+                            }
+                            hide_progress(gameRoot.find('#game-entry-progress'));
+                        },error_object,gameRoot.find('#game-entry-progress'));
+                    }
+                });
+
                 hide_progress(progress_element);
             }
         },error_object);
