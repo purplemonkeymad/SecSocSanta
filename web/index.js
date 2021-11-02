@@ -259,11 +259,13 @@ function nav_event_game_list(){
                 // set mdl events
                 componentHandler.upgradeElements(rowInDocument);
                 // set accordion properties
-                $(rowInDocument).find('.mdl-accordion__content').each(function(){
+                var accContent = $(rowInDocument).find('.mdl-accordion__content');
+                accContent.each(function(){
                     var content = $(this);
                     content.css('margin-top', -content.height());
                 });
                 $(rowInDocument).find('.mdl-accordion__button').on('click', function(){
+                    accContent.css('margin-top', -accContent.height());
                     $(this).parent('.mdl-accordion').toggleClass('mdl-accordion--opened');
                     getOwnedGameOnExpand($(this).parent(),$('#game-list-error'));
                 });
