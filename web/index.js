@@ -509,7 +509,11 @@ function getJoinedGameOnExpand(element,error_object,progress_element=null){
                         } else if (json_data.status == 'ok'){
                             error_object.removeClass('error-text');
                             clearMaterialInputBox(ideaBox);
-                            error_object.text("Successful Submission.");
+                            if (json_data.ideastatus == "Existing"){
+                                error_object.text("You already submitted this idea, try another one.");
+                            } else {
+                                error_object.text("Successful Submission.");
+                            }
                         }
                         hide_progress(progress_object);
                         enable_button(button_object);
