@@ -66,6 +66,11 @@ body {
     flex-wrap: wrap;
 }
 
+.giftee-anounce {
+    text-align: center;
+    font-size: x-large;
+}
+
 /* accordion css https://codepen.io/mjmaix/pen/JEYzyq */
 
 .mdl-accordion.mdl-accordion--opened {
